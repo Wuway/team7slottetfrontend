@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Documentation/">
+    <File Path="Model DCD.mmd" />
+  </Folder>
   <Project Path="slottetapi/slottetapi.csproj" />
   <Project Path="team7slottetfrontend/team7slottetfrontend.csproj" />
 </Solution>

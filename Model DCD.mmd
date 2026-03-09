@@ -1,0 +1,111 @@
+classDiagram
+   User "*" -- "1" UserRole
+   OverlapSchedule "*" -- "1" ShiftType
+   User "*" -- "*" OverlapSchedule
+   OverlapSchedule "*" -- "1" Department
+   Citizen "*" -- "1" Department
+   Citizen "*" -- "1" RiskIndicator
+   OverlapSchedule "1" -- "*" Responsibility
+   Department "1" -- "*" Reminder
+   OverlapSchedule "1" -- "*" PhoneAssignment
+   OverlapSchedule "1" -- "*" Task
+   User "1" -- "*" Responsibility
+   User "1" -- "*" PhoneAssignment
+   ScheduledMedication "*" -- "1" Citizen
+   ScheduledMedication "1" -- "*" MedicationDays
+   ScheduledMedication "*" -- "1" Medication
+   PNTime "1" -- "1" Medication
+   MedicationDays "*" -- "1" Days
+   Citizen "1" -- "*" PNTime
+
+
+    class OverlapSchedule{
+      +int ID
+      +dateTime Date
+
+    }
+    class ShiftType{
+      <<enumeration>>
+      DAGVAGT
+      AFTENVAGT
+      NATTEVAGT
+    }
+    class Citizen{
+      +int ID 
+      +int SocialSecurityNo
+      +string FirstName
+      +string LastName
+      +string ShoppingDay
+      +string PaymentMethod 
+      +string Alias
+      +string Status 
+    }
+    class Task{
+      +int ID
+      +string Description
+      +bool Done
+    }
+    class Department{
+      +int ID
+      +string Title
+    }
+    class RiskIndicator{
+     <<enumeration>>
+      LOW
+      MIDDLE
+      HIGH
+    }
+    class Responsibility{
+      +int ID
+      +string Title
+    }
+    class PhoneAssignment{
+      +int ID
+      +int PhoneNumber
+    }
+    class Reminder{
+      +int ID
+      +string Title 
+    }
+    class User{
+      +int ID
+      +string Password
+      +string FirstName
+      +string LastName
+      +string Alias
+    }
+    class UserRole{
+     <<enumeration>>
+      ADMINISTRATOR
+      VAGTANSVARLIG
+      PLEJEPERSONALE
+    }
+    class Medication{
+     +int ID
+     +string PrepName
+     +string Dosage    
+    }
+    class MedicationDays{
+    }
+    class Days{
+     <<enumeration>>
+     MONDAY
+     TUESDAY
+     WEDNESDAY
+     THURSDAY
+     FRIDAY
+     SATURDAY
+     SUNDAY
+    }
+    class PNTime{
+     +int ID
+     +dateTime DispensedAt
+     +timeOnly TimeBetweenDosis
+     +string Note
+
+    }
+    class ScheduledMedication{
+     +int ID
+     +dateTime DispenseAt    
+    }
+    
