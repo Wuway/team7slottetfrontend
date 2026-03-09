@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="slottetapi/slottetapi.csproj" />
+  <Project Path="team7slottetfrontend/team7slottetfrontend.csproj" />
+</Solution>
