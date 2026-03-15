@@ -1,0 +1,21 @@
+sequenceDiagram
+    actor User
+    participant Dashboard
+    participant System
+    participant Database
+
+    User->>Dashboard: Ændrer værdi
+    Dashboard->>System: Anmod om ændring
+    System->>User: Vis password-dialog
+    User->>System: Indtaster password
+    System->>System: Verificer password
+    
+    alt Password korrekt
+        System->>Database: Gem ændring
+        Database-->>System: Bekræftelse
+        System-->>Dashboard: Opdater visning
+        Dashboard-->>User: Vis succesbeskhed
+    else Password forkert
+        System-->>Dashboard: Afvis ændring
+        Dashboard-->>User: Vis fejlbesked
+    end
