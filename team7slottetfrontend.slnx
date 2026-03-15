@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Documentation/">
     <File Path="Model DCD.mmd" />
+    <File Path="UpdateUserVerificationSSD.mmd" />
   </Folder>
   <Project Path="slotlib/slotlib.csproj" Id="0454d705-78f3-435b-a12e-04b6141f7837" />
   <Project Path="slottetapi/slottetapi.csproj" />
