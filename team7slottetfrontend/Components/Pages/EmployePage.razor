@@ -1,0 +1,58 @@
+@page "/employee"
+
+<PageTitle>Employee</PageTitle>
+
+<h2>Medarbejder Administration </h2>
+
+<section class="add-worker-section">
+    <div class="form-header">Tilføj Ny Medarbejder</div>
+    <div class="form-row">
+        <input type="text" placeholder="Fornavn" />
+        <input type="text" placeholder="Efternavn" />
+        <input type="text" placeholder="Alias" />
+        <input type="text" placeholder="4 cifret kode" />
+        <button class="btn-add">Tilføj</button>
+    </div>
+</section>
+
+<section class="list-section">
+    <div class="list-header">
+        <h3>Liste over medarbejder</h3>
+        <input type="search" placeholder="Søg efter medarbejder" />
+        <button class="btn-search">Søg</button>
+    </div>
+
+    <div class="table-scroll-container">
+    <table class="worker-table">
+        <thead>
+            <tr>
+                <th>Fornavn</th>
+                <th>Efternavn</th>
+                <th>Alias</th>
+                <th>Synlighed</th>
+                <th>Rolle</th>
+                <th>Handlinger</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Eksempel ligesom på wireframe, men skal skiftes ud. -->
+            <tr>
+                <td>Bjarne</td>
+                <td>Brup</td>
+                <td>Bjerget</td>
+                <td>
+                    <label class="switch">
+                    <input type="checkbox" >
+                    <span class="slider"></span>
+                    </label>
+                </td>
+                <td>Admin</td>
+                <td>
+                    <button class="btn-edit">Rediger</button>
+                    <button class="btn-delete">Slet</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</section>
