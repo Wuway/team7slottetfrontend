@@ -1,0 +1,171 @@
+﻿@page "/plejekort"
+
+<div class="date-nav">
+    <button>&#8249;</button>
+    <span id="dateLabel">Torsdag d. 26-02-2026</span>
+    <button>&#8250;</button>
+</div>
+
+<div class="columns">
+
+    <!-- RESIDENT PICKER -->
+    <aside>
+    <div>
+        <p class="picker-label">Vælg Beboer</p>
+
+        <div class="picker-list">
+            <div class="picker-scroll-btn">&#8963;</div>
+
+            <div class="picker-row selected">Anne Rasmussen</div>
+            <div class="picker-row">Jens Jensen</div>
+            <div class="picker-row">Adam Lauge</div>
+            <div class="picker-row">Katrine Nøregaard</div>
+            <div class="picker-row">Lotte Johansen</div>
+            <div class="picker-row">Tue Hansen</div>
+            <div class="picker-row">Nicolai Frederiksen</div>
+            <div class="picker-row">Sabrina Viola</div>
+
+            <div class="picker-scroll-btn">&#8964;</div>
+        </div>
+    </div>
+    </aside>
+    <!-- DETAIL CARD -->
+    <aside>
+    <div class="detail-card">
+
+        <div class="detail-header">
+            <h2>Anne Rasmussen</h2>
+            <button class="kritisk-btn">Kritisk &#8964;</button>
+        </div>
+
+        <div class="detail-body">
+
+            <!-- MEDICIN -->
+            <div>
+                <div class="section-label">Medicin</div>
+
+                <div class="pill-grid">
+                    <label class="pill">
+                        <input type="checkbox"> 08:30
+                    </label>
+
+                    <label class="pill">
+                        <input type="checkbox"> 11:30
+                    </label>
+
+                    <label class="pill">
+                        <input type="checkbox"> 14:25
+                    </label>
+
+                    <label class="pill">
+                        <input type="checkbox"> 17:30
+                    </label>
+
+                    <label class="pill">
+                        <input type="checkbox"> 20:00
+                    </label>
+
+                    <label class="pill">
+                        <input type="checkbox"> 22:00
+                    </label>
+                </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- PN TID -->
+            <div>
+
+                <div class="pn-row">
+
+                    <div class="section-label">PN – TID</div>
+
+                    <div class="pn-actions">
+
+                        <div class="pn-time-pill">
+                            11:22
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 width="16"
+                                 height="16"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor"
+                                 stroke-width="2">
+
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 6v6l4 2"></path>
+
+                            </svg>
+
+                        </div>
+
+                        <button class="icon-btn green">+</button>
+
+                    </div>
+
+                </div>
+
+                <div class="pill-grid">
+                    <label class="pill">9:00</label>
+                </div>
+
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- HANDLEDAG + BETALING -->
+            <div class="bottom-grid">
+
+                <div class="bottom-col">
+
+                    <label>Handledag</label>
+
+                    <div class="select-wrap">
+
+                        <select>
+
+                            <option>Dag</option>
+                            <option>Mandag</option>
+                            <option>Tirsdag</option>
+                            <option>Onsdag</option>
+                            <option>Torsdag</option>
+                            <option>Fredag</option>
+
+                        </select>
+
+                    </div>
+
+                    <textarea placeholder="Indkøbsliste eller noter"></textarea>
+
+                </div>
+
+                <div class="bottom-col">
+
+                    <label>Betaling</label>
+
+                    <textarea placeholder="Betalings information"></textarea>
+
+                </div>
+
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- MESSAGE -->
+            <div class="message-area">
+
+                <textarea placeholder="Tilføj besked eller opgave…"></textarea>
+
+            </div>
+
+        </div>
+
+    </div>
+    </aside>
+
+</div>
+
+@code {
+
+}
