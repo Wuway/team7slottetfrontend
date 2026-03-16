@@ -19,5 +19,11 @@ namespace slotlib.Models
 
         private string _alias;
         public string Alias { get; set; }
+
+        private string _password;
+        public string Password { get; set; } 
+
+        private bool _activedeactive;
+        public bool ActiveDeactive { get; set; } = true;
     }
 }
