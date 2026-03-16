@@ -1,8 +1,35 @@
 ﻿@inherits LayoutComponentBase
 
+
+
+<div class="d-flex flex-column vh-100 component">
+
+    <header class="navbar px-4">
+        <span class="navbar-brand text-white">My App</span>
+    </header>
+
+    <div class="d-flex flex-grow-1 overflow-hidden">
+        <nav class="p-3" style="width: 220px;">
+            <NavMenu />
+        </nav>
+        <main class="flex-grow-1 overflow-auto p-4">
+            @Body
+
+        </main>
+    </div>
+
+    <footer class="navbar px-4">
+        <small>Footer</small>
+    </footer>
+
+</div>
+
+@* ORIGINAL
+
 <div class="top-row px-4">
     <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
 </div>
+
 <div class="page">
     
 
@@ -28,4 +55,4 @@
     An unhandled error has occurred.
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
-</div>
+</div> *@

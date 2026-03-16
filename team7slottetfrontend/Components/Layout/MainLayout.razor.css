@@ -1,0 +1,19 @@
+.component header {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-light);
+}
+
+.component footer {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-light);
+}
+
+.component nav {
+    background-color: var(--color-bg-mid);
+    color: var(--color-text-light);
+}
+
+.component main {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+}
