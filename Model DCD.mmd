@@ -3,20 +3,21 @@ classDiagram
    OverlapSchedule "*" -- "1" ShiftType
    User "*" -- "*" OverlapSchedule
    OverlapSchedule "*" -- "1" Department
-   Citizen "*" -- "1" Department
-   Citizen "*" -- "1" RiskIndicator
+   Resident "*" -- "1" Department
+   Resident "*" -- "1" RiskIndicator
    OverlapSchedule "1" -- "*" Responsibility
    Department "1" -- "*" Reminder
    OverlapSchedule "1" -- "*" PhoneAssignment
    OverlapSchedule "1" -- "*" Task
    User "1" -- "*" Responsibility
    User "1" -- "*" PhoneAssignment
-   ScheduledMedication "*" -- "1" Citizen
+   ScheduledMedication "*" -- "1" Resident
    ScheduledMedication "1" -- "*" MedicationDays
-   ScheduledMedication "*" -- "1" Medication
-   PNTime "1" -- "1" Medication
+   ScheduledMedication "*" -- "1" MedicationDosege
+   MedicationDosege "*" -- "1" Medication
+   PNTime "1" -- "1" MedicationDosege
    MedicationDays "*" -- "1" Days
-   Citizen "1" -- "*" PNTime
+   Resident "1" -- "*" PNTime
 
 
     class OverlapSchedule{
@@ -30,7 +31,7 @@ classDiagram
       AFTENVAGT
       NATTEVAGT
     }
-    class Citizen{
+    class Resident{
       +int ID 
       +int SocialSecurityNo
       +string FirstName
@@ -82,8 +83,7 @@ classDiagram
     }
     class Medication{
      +int ID
-     +string PrepName
-     +string Dosage    
+     +string PrepName  
     }
     class MedicationDays{
     }
@@ -107,5 +107,10 @@ classDiagram
     class ScheduledMedication{
      +int ID
      +dateTime DispenseAt    
+    }
+
+    class MedicationDosege{
+     +int ID
+     +string Dosage
     }
     
