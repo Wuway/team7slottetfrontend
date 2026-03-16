@@ -1,0 +1,29 @@
+.nav-item{
+    border-radius: var(--mid-radius);
+}
+
+::deep .nav-item a.nav-link {
+    color: var(--color-text-muted) !important;
+}
+
+::deep .nav-item a.active {
+    color: var(--color-text-light) !important;
+}
+
+.nav-item:hover {
+    background-color: var(--color-bg-light);
+}
+
+.bi {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    vertical-align: -0.125em;
+    color: var(--color-text-muted);
+}
+
+::deep .nav-item a.active .bi{
+    color: var(--color-text-light) !important;
+}
+
