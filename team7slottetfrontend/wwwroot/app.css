@@ -6,7 +6,8 @@
     --color-highlight: #e94560;
     --color-text-light: #f5f5f5;
     --color-text-muted: #a8a8b3;
-    --mid-radius: 5px;
+    --mid-radius: 10px;
+    --large-radius: 20px;
 }
 
 [data-theme="light"] {

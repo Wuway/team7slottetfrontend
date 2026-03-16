@@ -1,0 +1,15 @@
+﻿.card{
+    background-color: var(--color-bg-mid);
+    margin-bottom: 20px;
+    border-radius: var(--large-radius);
+    overflow: hidden;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-header {
+    background: linear-gradient(to right, #0f3460, #0d9e8a);
+    font-weight: 800;
+}
