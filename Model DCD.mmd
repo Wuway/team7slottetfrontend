@@ -13,8 +13,9 @@ classDiagram
    User "1" -- "*" PhoneAssignment
    ScheduledMedication "*" -- "1" Citizen
    ScheduledMedication "1" -- "*" MedicationDays
-   ScheduledMedication "*" -- "1" Medication
-   PNTime "1" -- "1" Medication
+   ScheduledMedication "*" -- "1" MedicationDosege
+   MedicationDosege "*" -- "1" Medication
+   PNTime "1" -- "1" MedicationDosege
    MedicationDays "*" -- "1" Days
    Citizen "1" -- "*" PNTime
 
@@ -82,8 +83,7 @@ classDiagram
     }
     class Medication{
      +int ID
-     +string PrepName
-     +string Dosage    
+     +string PrepName  
     }
     class MedicationDays{
     }
@@ -107,5 +107,10 @@ classDiagram
     class ScheduledMedication{
      +int ID
      +dateTime DispenseAt    
+    }
+
+    class MedicationDosege{
+     +int ID
+     +string Dosage
     }
     
