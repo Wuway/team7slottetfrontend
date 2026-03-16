@@ -7,3 +7,13 @@
     --color-text-light: #f5f5f5;
     --color-text-muted: #a8a8b3;
 }
+
+[data-theme="light"] {
+/*    --color-bg-dark: #1a1a2e;
+    --color-bg-mid: #16213e;
+    --color-bg-light: #26314e;
+    --color-accent: #0f3460;
+    --color-highlight: #e94560;
+    --color-text-light: #f5f5f5;
+    --color-text-muted: #a8a8b3;*/
+}
