@@ -1,20 +1,21 @@
 .component header {
-    background-color: var(--color-bg-dark);
-    color: var(--color-text-light);
+    background-color: var(--top-bar);
+    color: var(--primery-text);
 }
 
 .component footer {
-    background-color: var(--color-bg-dark);
-    color: var(--color-text-light);
+    background-color: var(--top-bar);
+    color: var(--primery-text);
 }
 
 .component nav {
-    background-color: var(--color-bg-mid);
-    color: var(--color-text-light);
+    background-color: var(--surface);
+    color: var(--primery-text);
 }
 
+
 .component main {
-    background-color: var(--color-bg-light);
-    color: var(--color-text-light);
+    background-color: var(--canvas);
+    color: var(--primery-text);
 }
 

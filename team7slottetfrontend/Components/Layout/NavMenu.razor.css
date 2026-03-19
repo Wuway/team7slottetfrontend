@@ -3,15 +3,15 @@
 }
 
 ::deep .nav-item a.nav-link {
-    color: var(--color-text-muted) !important;
+    color: var(--secondery-text) !important;
 }
 
 ::deep .nav-item a.active {
-    color: var(--color-text-light) !important;
+    color: var(--primery-text) !important;
 }
 
 .nav-item:hover {
-    background-color: var(--color-bg-light);
+    background-color: var(--top-bar);
 }
 
 .bi {
@@ -20,10 +20,10 @@
     height: 2rem;
     font-size: 1.5rem;
     vertical-align: -0.125em;
-    color: var(--color-text-muted);
+    color: var(--secondery-text);
 }
 
-::deep .nav-item a.active .bi{
-    color: var(--color-text-light) !important;
+::deep .nav-item a.active .bi {
+    color: var(--primery-text) !important;
 }
 
