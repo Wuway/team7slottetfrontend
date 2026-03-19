@@ -1,8 +1,39 @@
-﻿
-<label></label>
-<input />
+﻿@rendermode InteractiveServer
+
+<label>@Name</label>
+<input name="@Name" @bind="newValue" @bind:after="OnChanged" />
 
 
 @code {
 
+    [Parameter]
+    public string Name { get; set; }
+
+    private string currentValue;
+    private string newValue;
+
+    public void OnChanged()
+    {
+        // Auth service check user
+
+        if (true)
+        {
+            // send api request
+            // when ok
+            currentValue = newValue;
+            return;
+        }
+
+        newValue = currentValue;
+        return;
+    }
+
+    [Parameter]
+    public string Value { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        currentValue = Value;
+        newValue = Value;
+    }
 }

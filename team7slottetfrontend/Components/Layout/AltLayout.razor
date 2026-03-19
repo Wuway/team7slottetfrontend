@@ -1,19 +1,16 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="d-flex flex-column vh-100 SL_component">
+<div class="d-flex flex-column vh-100 component">
 
-    <SL_Header/>
+    <header class="navbar px-4">
+        <span class="navbar-brand text-white">My App</span>
+    </header>
 
     <div class="d-flex flex-grow-1 overflow-hidden">
-        <nav class="p-3" style="width: 220px;">
-            <NavMenu />
-        </nav>
         <main class="flex-grow-1 overflow-auto p-4">
             @Body
 
         </main>
     </div>
-
-    <SL_Footer/>
 
 </div>
