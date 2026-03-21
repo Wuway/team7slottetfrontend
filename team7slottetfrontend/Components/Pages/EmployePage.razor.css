@@ -1,0 +1,188 @@
+h2 {
+        color: var(--primery-text);
+        margin-bottom: 20px;
+    }
+/* Tilføj Ny Medarbejder Sektion */
+    .add-worker-section {        
+        margin-bottom: 30px;
+    }
+    
+    .form-header {
+        background-color: var(--primery-button);
+        color: var(--inverted-text);
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 8px 8px 0 0;
+        font-size: 1.1em;
+        
+    }
+
+    .form-row {
+        border: 1px solid var(--borders);
+        background-color: var(--surface);
+        padding: 15px;
+        border-radius: 0 4px 4px 4px;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .btn-add {
+        background-color: var(--primery-button);
+        color: var(--inverted-text);
+        border: none;
+        padding: 8px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+/* Liste sektion */
+    .list-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        color: var(--primery-text);
+    }
+
+    .list-header h3 {
+        margin: 0;
+    }
+   
+   .list-header input[type="search"] {
+        padding: 8px;
+        width: 250px;
+        border: 1px solid var(--borders);
+        background-color: var(--surface);
+        color: var(--primery-text);
+        border-radius: 8px;
+        width: 250px;
+    }
+
+    .btn-search {
+        display: none;
+    }
+
+    /* Tabel styling */
+
+    .table-scroll-container {
+        height: 400px; /* Juster efter behov */
+        overflow-y: auto;
+        border: 1px solid var(--borders);
+        border-radius: 4px;
+        background-color: var(--surface);
+    }
+
+    .worker-table {
+        width: 100%;
+        border-collapse: collapse;
+        color: var(--primery-text);
+    }
+
+    .worker-table th, .worker-table td {
+        border: 1px solid var(--borders);
+        padding: 10px;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .worker-table th {
+        background-color: var(--surface);
+        font-weight: bold;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        box-shadow: 0 1px 0 var(--borders);
+    }
+
+    .select-wrap select {
+        padding: 5px;
+        border: 1px solid var(--borders);
+        background-color: var(--surface);
+        color: var(--primery-text);
+        border-radius: 4px;
+    }
+
+    /* Handlinger knapper i tabellen*/
+
+.col-actions {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    white-space:nowrap;
+}
+.btn-edit {
+    background-color: var(--primery-button);
+    color: var(--inverted-text);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-delete {
+    background-color: var(--status-high);
+    color: var(--inverted-text);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Switch styling */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--borders);
+    transition: .4s;
+    border-radius: 24px;
+    }
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 5px;
+    bottom: 3px;
+    background-color: var(--inverted-text);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--primery-button);
+}
+
+input:checked + .slider:before {
+    transform: translateX(34px);
+}
+
+.col-fit {
+    width: 5%;
+    white-space: nowrap;
+}
+
+.text-center {
+    text-align: center !important;
+}

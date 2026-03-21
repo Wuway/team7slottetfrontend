@@ -29,10 +29,10 @@
                 <th>Fornavn</th>
                 <th>Efternavn</th>
                 <th>Alias</th>
-                <th>Synlighed</th>
+                <th class="col-fit text-center">Synlighed</th>
                 <!-- Skal skiftes ud med dropdown menu, i forhold til hvilken rolle man har. -->
-                <th>Rolle</th>
-                <th>Handlinger</th>
+                <th class="col-fit">Rolle</th>
+                <th class="col-fit">Handlinger</th>
             </tr>
         </thead>
         <tbody>
@@ -41,13 +41,13 @@
                 <td>Bjarne</td>
                 <td>Brup</td>
                 <td>Bjerget</td>
-                <td>
+                <td class="text-center">
                     <label class="switch">
                     <input type="checkbox" >
                     <span class="slider"></span>
                     </label>
                 </td>
-                <td>
+                <td class="text-center">
                     <div class="select-wrap">
                         <select>
                             <option>Admin</option>
@@ -57,12 +57,17 @@
                         </select>
                     </div>
                 </td>
-                <td>
-                    <button class="btn-edit">Rediger</button>
-                    <button class="btn-delete">Slet</button>
+
+                <td class="text-center">
+                    <div class="col-actions">
+                        <button class="btn-edit">Rediger</button>
+                        <button class="btn-delete">Slet</button>
+                    </div>
+
                 </td>
             </tr>
         </tbody>
     </table>
     </div>
 </section>
+
