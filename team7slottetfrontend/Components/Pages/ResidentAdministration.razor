@@ -1,0 +1,146 @@
+﻿@page "/residentadministration"
+
+
+<h1>Beboer Administration</h1>
+
+<!-- Add Resident Section -->
+<div class="add-section">
+  <h2>Tilføj Ny Beboer</h2>
+  <div class="add-form">
+    <input type="text" placeholder="Fornavn" />
+    <input type="text" placeholder="Efternavn" />
+    <input type="text" placeholder="Dashboard Initialer" />
+    <button class="btn-add-resident">Tilføj</button>
+  </div>
+</div>
+
+<!-- Residents Grid -->
+<div class="residents-wrapper">
+  <span class="scroll-arrow up">&#8743;</span>
+
+  <div class="residents-grid" id="residentsGrid">
+
+    <!-- Card 1 -->
+    <div class="resident-card">
+      <div class="resident-header">
+        <div class="resident-name">Susanne Pedersen (S. P.)</div>
+        <button class="btn-edit">Rediger</button>
+        <button class="btn-delete">Slet</button>
+      </div>
+      <div class="resident-body">
+        <div class="med-label">Medicin Tider</div>
+        <div class="med-time-row"><span class="time">8:30</span><span class="delete-time">&#10005;</span></div>
+        <div class="med-time-row"><span class="time">12:00</span><span class="delete-time">&#10005;</span></div>
+        <div class="med-time-row"><span class="time">14:00</span><span class="delete-time">&#10005;</span></div>
+        <div class="add-time-row">
+          <input type="time" value="00:00" />
+          <button class="btn-add-time">Tilføj</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="resident-card">
+      <div class="resident-header">
+        <div class="resident-name">Jens Jensen (J. J.)</div>
+        <button class="btn-edit">Rediger</button>
+        <button class="btn-delete">Slet</button>
+      </div>
+      <div class="resident-body">
+        <div class="med-label">Medicin Tider</div>
+        <div class="med-time-row"><span class="time">8:30</span><span class="delete-time">&#10005;</span></div>
+        <div class="med-time-row"><span class="time">12:00</span><span class="delete-time">&#10005;</span></div>
+        <div class="med-time-row"><span class="time">14:00</span><span class="delete-time">&#10005;</span></div>
+        <div class="add-time-row">
+          <input type="time" value="00:00" />
+          <button class="btn-add-time">Tilføj</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="resident-card">
+      <div class="resident-header">
+        <div class="resident-name">Adam Lange (A. L.)</div>
+        <button class="btn-edit">Rediger</button>
+        <button class="btn-delete">Slet</button>
+      </div>
+      <div class="resident-body">
+        <div class="med-label">Medicin Tider</div>
+        <div class="med-time-row"><span class="time">8:30</span><span class="delete-time">&#10005;</span></div>
+        <div class="med-time-row"><span class="time">12:00</span><span class="delete-time">&#10005;</span></div>
+        <div class="med-time-row"><span class="time">14:00</span><span class="delete-time">&#10005;</span></div>
+        <div class="add-time-row">
+          <input type="time" value="00:00" />
+          <button class="btn-add-time">Tilføj</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="resident-card">
+      <div class="resident-header">
+        <div class="resident-name">Kathrine Nøregård (K. N.)</div>
+        <button class="btn-edit">Rediger</button>
+        <button class="btn-delete">Slet</button>
+      </div>
+      <div class="resident-body">
+        <div class="med-label">Medicin Tider</div>
+        <div class="med-time-row"><span class="time">8:30</span><span class="delete-time">&#10005;</span></div>
+        <div class="med-time-row"><span class="time">12:00</span><span class="delete-time">&#10005;</span></div>
+        <div class="med-time-row"><span class="time">14:00</span><span class="delete-time">&#10005;</span></div>
+        <div class="add-time-row">
+          <input type="time" value="00:00" />
+          <button class="btn-add-time">Tilføj</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="resident-card">
+      <div class="resident-header">
+        <div class="resident-name">Susanne Pedersen (S. P.)</div>
+        <button class="btn-edit">Rediger</button>
+        <button class="btn-delete">Slet</button>
+      </div>
+      <div class="resident-body">
+        <div class="med-label">Medicin Tider</div>
+        <div class="med-time-row"><span class="time">8:30</span><span class="delete-time">&#10005;</span></div>
+        <div class="med-time-row"><span class="time">12:00</span><span class="delete-time">&#10005;</span></div>
+        <div class="med-time-row"><span class="time">14:00</span><span class="delete-time">&#10005;</span></div>
+        <div class="add-time-row">
+          <input type="time" value="00:00" />
+          <button class="btn-add-time">Tilføj</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="resident-card">
+      <div class="resident-header">
+        <div class="resident-name">Kathrine Nøregård (K. N.)</div>
+        <button class="btn-edit">Rediger</button>
+        <button class="btn-delete">Slet</button>
+      </div>
+      <div class="resident-body">
+        <div class="med-label">Medicin Tider</div>
+        <div class="med-time-row"><span class="time">8:30</span><span class="delete-time">&#10005;</span></div>
+        <div class="med-time-row"><span class="time">12:00</span><span class="delete-time">&#10005;</span></div>
+        <div class="med-time-row"><span class="time">14:00</span><span class="delete-time">&#10005;</span></div>
+        <div class="add-time-row">
+          <input type="time" value="00:00" />
+          <button class="btn-add-time">Tilføj</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end grid -->
+
+  <span class="scroll-arrow down">&#8744;</span>
+</div>
+
+
+
+@code {
+
+}
