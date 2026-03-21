@@ -1,0 +1,51 @@
+@page "/responseability"
+
+<PageTitle>Ansvarsopgaver</PageTitle>
+
+<h2>Administration af Ansvar og opgaver</h2>
+
+<button class="btn-add">Tilføj Ny Ansvar</button>
+
+<section class="list-section">
+    <div class="table-scroll-container">
+    <table class="worker-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Opgave</th>
+                <th>Handlinger</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Eksempel ligesom på wireframe, men skal skiftes ud. -->
+            <tr>
+                <td>1</td>
+                <td>Toilet rengøring</td>
+                
+                    
+               <td>
+                <div class="icon-actions">
+                    <button class="btn-icon">
+                        <span class="bi bi-chevron-down" aria-hidden="true"></span>
+                    </button>
+                    
+                    <button class="btn-icon">
+                        <span class="bi bi-chevron-up" aria-hidden="true"></span>
+                    </button>
+                    
+                    <button class="btn-icon btn-delete-icon">
+                        <span class="bi bi-trash" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+</section>
+
+@code {
+
+}
