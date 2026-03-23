@@ -1,0 +1,63 @@
+﻿@using slotlib.Models
+
+@page "/dashboard"
+
+<PageTitle>Dashboard</PageTitle>
+
+<h1>Dashboard</h1>
+
+<div class="dashboard-container">
+
+    @foreach (var resident in residents)
+    {
+    <div class="Plejekort">
+            <h2>@resident.FirstName @resident.LastName</h2>
+
+    <div class="info-section">
+                 <h5>Medicin</h5>
+                @foreach (var medicin in resident.ScheduleMedications)
+                {
+                    <div class="medicin-row">
+                        <span class="tid">@medicin.DispenseAt.ToShortTimeString()</span>             
+                    </div>
+                }
+    </div>
+
+    <div class="status">
+        <h5>Status</h5>
+        <span>@resident.Status</span>
+    </div>
+</div>
+    }
+</div>
+
+@code {
+
+    List<Resident> residents = new List<Resident>
+    {
+        new Resident {
+            FirstName = "Arne",
+            LastName = "Rasmussen",                
+            Status = "OK",
+
+            ScheduleMedications = new List<ScheduleMedication>
+            {
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(8) },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(12) },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(18) }
+            }
+        },
+        new Resident {
+            FirstName = "Jens",
+			LastName = "Jensen",
+            Status = "Kræver opmærksomhed",
+
+            ScheduleMedications = new List<ScheduleMedication>
+            {
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(8) },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(12) },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(18) }
+            }
+        }
+    };
+}
