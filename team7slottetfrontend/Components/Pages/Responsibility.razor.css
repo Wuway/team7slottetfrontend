@@ -2,7 +2,7 @@
     h2 {
         margin: 0;
         font-weight: normal;
-        color: var(--primery-text); /* Tilpasser sig lyst/mørkt tema */
+        color: var(--primery-text); 
     }
 
     /* Container til titel og knap */
@@ -20,7 +20,7 @@
         color: var(--inverted-text);
         border: none;
         padding: 10px 16px;
-        border-radius: var(--mid-radius); /* Bruger din radius variabel */
+        border-radius: var(--mid-radius); 
         font-size: 14px;
         cursor: pointer;
         display: flex;
@@ -29,8 +29,7 @@
         transition: opacity 0.2s ease-in-out;
     }
 
-    /* I stedet for en hardcodet farve ved hover, ændrer vi bare gennemsigtigheden lidt, 
-       så det virker uanset om knappen er blå eller en anden farve */
+   
     .btn-add:hover {
         opacity: 0.8;
     }
@@ -39,7 +38,7 @@
     .table-scroll-container {
         border: 1px solid var(--borders);
         border-radius: var(--mid-radius);
-        background-color: var(--surface); /* Giver tabellen en baggrundsfarve der passer til temaet */
+        background-color: var(--surface); 
         overflow: hidden;
     }
 
@@ -47,7 +46,7 @@
     .worker-table {
         width: 100%;
         border-collapse: collapse;
-        table-layout: fixed; /* VIGTIGT: Dette låser kolonnerne fast til dine procenter */
+        table-layout: fixed; 
         color: var(--primery-text);
     }
 
@@ -83,14 +82,14 @@
     /* Beholder til ikonerne i højre side */
     .icon-actions {
         display: flex;
-        justify-content: flex-end; /* Skubber selve ikonerne helt til højre i cellen */
+        justify-content: flex-end; 
         gap: 15px;
         align-items: center;
     }
 
     /* Knapperne der holder ikonerne */
     .btn-icon {
-        background-color: transparent; /* Fjerner den hvide firkant */
+        background-color: transparent; 
         border: none;
         padding: 0;
         cursor: pointer;
@@ -115,14 +114,14 @@
         padding: 20px;
         margin-bottom: 20px;
         display: flex;
-        flex-direction: row; /* Ændret fra column til row */
-        align-items: center; /* Centrerer inputfelt og knapper pænt på midten lodret */
+        flex-direction: row; 
+        align-items: center; 
         gap: 15px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     }
 
     .input-task {
-        flex-grow: 1; /* Får inputfeltet til at fylde alt den resterende plads ud */
+        flex-grow: 1; 
         background-color: var(--canvas);
         color: var(--primery-text);
         border: 1px solid var(--borders);
@@ -140,7 +139,7 @@
     .form-actions {
         display: flex;
         gap: 10px;
-        white-space: nowrap; /* Sikrer at knapperne ikke bryder over på to linjer hvis skærmen er smal */
+        white-space: nowrap; 
     }
 
     .btn-cancel {
@@ -153,7 +152,7 @@
     }
 
     .btn-save {
-        background-color: var(--status-low); /* Bruger din grønne farve til at signalere "Succes/Gem" */
+        background-color: var(--status-low); 
         color: var(--inverted-text);
         border: none;
         padding: 10px 16px;
