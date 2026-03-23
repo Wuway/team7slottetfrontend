@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+﻿@implements IDisposable
+@inherits LayoutComponentBase
+@inject ModalService ModalService
 
 <div class="d-flex flex-column vh-100 SL_component">
 
@@ -17,3 +19,23 @@
     <SL_Footer/>
 
 </div>
+
+@if (ModalService.IsOpen)
+{
+    <AuthModal OnAuthResult="ModalService.OnAuthResult"></AuthModal>
+}
+
+
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        ModalService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        ModalService.OnChange -= StateHasChanged;
+    }
+}
