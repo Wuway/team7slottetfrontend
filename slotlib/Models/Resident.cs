@@ -31,5 +31,9 @@ namespace slotlib.Models
 
         private string _status;
         public string Status { get; set; }
+
+        public List<ScheduleMedication> ScheduleMedications { get; set; } = new();
+
+
     }
 }
