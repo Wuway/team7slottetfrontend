@@ -1,0 +1,166 @@
+/* Overskrift */
+    h2 {
+        margin: 0;
+        font-weight: normal;
+        color: var(--primery-text); /* Tilpasser sig lyst/mørkt tema */
+    }
+
+    /* Container til titel og knap */
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    /* Den blå "Tilføj" knap */
+    .btn-add {
+        background-color: var(--primery-button);
+        color: var(--inverted-text);
+        border: none;
+        padding: 10px 16px;
+        border-radius: var(--mid-radius); /* Bruger din radius variabel */
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    /* I stedet for en hardcodet farve ved hover, ændrer vi bare gennemsigtigheden lidt, 
+       så det virker uanset om knappen er blå eller en anden farve */
+    .btn-add:hover {
+        opacity: 0.8;
+    }
+
+    /* Tabellens ydre container */
+    .table-scroll-container {
+        border: 1px solid var(--borders);
+        border-radius: var(--mid-radius);
+        background-color: var(--surface); /* Giver tabellen en baggrundsfarve der passer til temaet */
+        overflow: hidden;
+    }
+
+    /* Selve tabellen */
+    .worker-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed; /* VIGTIGT: Dette låser kolonnerne fast til dine procenter */
+        color: var(--primery-text);
+    }
+
+    /* Tabelhovedet */
+    .worker-table th {
+        background-color: var(--secondery-button);
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--borders);
+        font-weight: normal;
+    }
+
+    /* Kolonnebredder og justering i overskrifterne */
+    .col-id { width: 5%; text-align: left; }      
+    .col-name { width: 80%; text-align: left; }   
+    .col-actions { width: 15%; text-align: right; } 
+
+    /* Sørger for at selve cellerne følger præcis samme justering som overskrifterne */
+    .worker-table td:nth-child(1) { text-align: left; }
+    .worker-table td:nth-child(2) { text-align: left; }
+    .worker-table td:nth-child(3) { text-align: right; }
+
+    /* Tabel celler general styling */
+    .worker-table td {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--borders);
+    }
+
+    /* Fjerner bunden på den sidste række */
+    .worker-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* Beholder til ikonerne i højre side */
+    .icon-actions {
+        display: flex;
+        justify-content: flex-end; /* Skubber selve ikonerne helt til højre i cellen */
+        gap: 15px;
+        align-items: center;
+    }
+
+    /* Knapperne der holder ikonerne */
+    .btn-icon {
+        background-color: transparent; /* Fjerner den hvide firkant */
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        font-size: 18px;
+        color: var(--secondery-text);
+        transition: color 0.2s ease-in-out;
+    }
+
+    .btn-icon:hover {
+        color: var(--primery-text);
+    }
+    
+    .btn-delete-icon:hover {
+        color: var(--status-high); 
+    }
+
+    /* --- Styling til Tilføj-vinduet --- */
+    .add-form-container {
+        background-color: var(--surface);
+        border: 1px solid var(--borders);
+        border-radius: var(--mid-radius);
+        padding: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row; /* Ændret fra column til row */
+        align-items: center; /* Centrerer inputfelt og knapper pænt på midten lodret */
+        gap: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    }
+
+    .input-task {
+        flex-grow: 1; /* Får inputfeltet til at fylde alt den resterende plads ud */
+        background-color: var(--canvas);
+        color: var(--primery-text);
+        border: 1px solid var(--borders);
+        border-radius: 4px;
+        padding: 12px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .input-task:focus {
+        outline: none;
+        border-color: var(--primery-button);
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        white-space: nowrap; /* Sikrer at knapperne ikke bryder over på to linjer hvis skærmen er smal */
+    }
+
+    .btn-cancel {
+        background-color: var(--secondery-button);
+        color: var(--primery-text);
+        border: none;
+        padding: 10px 16px;
+        border-radius: var(--mid-radius);
+        cursor: pointer;
+    }
+
+    .btn-save {
+        background-color: var(--status-low); /* Bruger din grønne farve til at signalere "Succes/Gem" */
+        color: var(--inverted-text);
+        border: none;
+        padding: 10px 16px;
+        border-radius: var(--mid-radius);
+        cursor: pointer;
+    }
+
+    .btn-cancel:hover, .btn-save:hover {
+        opacity: 0.8;
+    }
