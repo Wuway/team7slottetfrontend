@@ -19,7 +19,7 @@ public class PatientTimeController : ControllerBase
         {
             Id = 1,
             DispensedAt = DateTime.Now,
-            TimeBetweenDosis = TimeOnly.Parse("20"),
+            TimeBetweenDosis = TimeOnly.Parse("20:00"),
             Note = ""
         };
 
@@ -37,22 +37,22 @@ public class PatientTimeController : ControllerBase
         {
             Id = 1,
             DispensedAt = DateTime.Now,
-            TimeBetweenDosis = TimeOnly.Parse("20"),
+            TimeBetweenDosis = TimeOnly.Parse("20:00"),
             Note = ""
         });
         pt.Add(new PatientTime()
         {
             Id = 2,
             DispensedAt = DateTime.Now,
-            TimeBetweenDosis = TimeOnly.Parse("60"),
+            TimeBetweenDosis = TimeOnly.Parse("1:00:00"),
             Note = ""
         });
         pt.Add(new PatientTime()
         {
             Id = 3,
             DispensedAt = DateTime.Now,
-            TimeBetweenDosis = TimeOnly.Parse("180"),
-            Note = "Kun p[ regnvjers dage"
+            TimeBetweenDosis = TimeOnly.Parse("3:30:00"),
+            Note = "Kun på regnvjers dage"
         });
 
 
