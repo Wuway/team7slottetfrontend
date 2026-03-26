@@ -7,10 +7,9 @@ namespace slottetapi.Controllers;
 [Route("api/[controller]")]
 public class MedicationController : ControllerBase
 {
-    //public IActionResult Index()
-    //{
-    //    return View();
-    //}
+
+    // Mangler Post, Put og Delete controlser
+    // Controler er hardcoded til første prototype ittereation
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetMedication(int id)
