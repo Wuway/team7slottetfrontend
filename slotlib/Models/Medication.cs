@@ -13,8 +13,5 @@ namespace slotlib.Models
 
         private string _prepName;
         public string PrepName { get; set; }
-
-        private string _dosage;
-        public int Dosage { get; set; }
     }
 }
