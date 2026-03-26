@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace slotlib.Models
 {
-    public class Task
+    public class ShiftTask
     {
         private int _id;
         public int Id { get; set; }
