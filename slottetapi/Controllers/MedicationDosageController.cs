@@ -13,42 +13,42 @@ public class MedicationDosageController : ControllerBase
     //}
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetMedication(int id)
+    public async Task<IActionResult> GetMedicationDosage(int id)
     {
-        Medication medication = new Medication()
+        MedicationDosage dosage = new MedicationDosage()
         {
             Id = 1,
-            PrepName = "Fentanyl"
+            Dosage = "2 mg"
         };
 
-        return Ok(medication);
+        return Ok(dosage);
     }
 
     [HttpGet]
-    public IActionResult GetAllResidents()
+    public IActionResult GetAllMedicationDosages()
     {
 
 
 
-        List<Medication> medications = new List<Medication>();
-        medications.Add(new Medication()
+        List<MedicationDosage> dosages = new List<MedicationDosage>();
+        dosages.Add(new MedicationDosage()
         {
             Id = 1,
-            PrepName = "Fentanyl"
+            Dosage = "2 mg"
         });
-        medications.Add(new Medication()
+        dosages.Add(new MedicationDosage()
         {
             Id = 2,
-            PrepName = "Panodil"
+            Dosage = "12 ug"
         });
-        medications.Add(new Medication()
+        dosages.Add(new MedicationDosage()
         {
             Id = 3,
-            PrepName = "Placebo"
+            Dosage = "3 piller"
         });
 
 
 
-        return Ok(medications);
+        return Ok(dosages);
     }
 }

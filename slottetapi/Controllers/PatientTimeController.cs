@@ -13,42 +13,50 @@ public class PatientTimeController : ControllerBase
     //}
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetMedication(int id)
+    public async Task<IActionResult> GetPT(int id)
     {
-        Medication medication = new Medication()
+        PatientTime pt = new PatientTime()
         {
             Id = 1,
-            PrepName = "Fentanyl"
+            DispensedAt = DateTime.Now,
+            TimeBetweenDosis = TimeOnly.Parse("20"),
+            Note = ""
         };
 
-        return Ok(medication);
+        return Ok(pt);
     }
 
     [HttpGet]
-    public IActionResult GetAllResidents()
+    public IActionResult GetAllPT()
     {
 
 
 
-        List<Medication> medications = new List<Medication>();
-        medications.Add(new Medication()
+        List<PatientTime> pt = new List<PatientTime>();
+        pt.Add(new PatientTime()
         {
             Id = 1,
-            PrepName = "Fentanyl"
+            DispensedAt = DateTime.Now,
+            TimeBetweenDosis = TimeOnly.Parse("20"),
+            Note = ""
         });
-        medications.Add(new Medication()
+        pt.Add(new PatientTime()
         {
             Id = 2,
-            PrepName = "Panodil"
+            DispensedAt = DateTime.Now,
+            TimeBetweenDosis = TimeOnly.Parse("60"),
+            Note = ""
         });
-        medications.Add(new Medication()
+        pt.Add(new PatientTime()
         {
             Id = 3,
-            PrepName = "Placebo"
+            DispensedAt = DateTime.Now,
+            TimeBetweenDosis = TimeOnly.Parse("180"),
+            Note = "Kun p[ regnvjers dage"
         });
 
 
 
-        return Ok(medications);
+        return Ok(pt);
     }
 }

@@ -13,42 +13,42 @@ public class PhoneAssignmentController : ControllerBase
     //}
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetMedication(int id)
+    public async Task<IActionResult> GetPhoneAssignment(int id)
     {
-        Medication medication = new Medication()
+        PhoneAssignment phoneAssignment = new PhoneAssignment()
         {
             Id = 1,
-            PrepName = "Fentanyl"
+            PhoneNumber = 12345678
         };
 
-        return Ok(medication);
+        return Ok(phoneAssignment);
     }
 
     [HttpGet]
-    public IActionResult GetAllResidents()
+    public IActionResult GetAllPhoneAssignments()
     {
 
 
 
-        List<Medication> medications = new List<Medication>();
-        medications.Add(new Medication()
+        List<PhoneAssignment> phoneAssignments = new List<PhoneAssignment>();
+        phoneAssignments.Add(new PhoneAssignment()
         {
             Id = 1,
-            PrepName = "Fentanyl"
+            PhoneNumber = 87654321
         });
-        medications.Add(new Medication()
+        phoneAssignments.Add(new PhoneAssignment()
         {
             Id = 2,
-            PrepName = "Panodil"
+            PhoneNumber = 13243546
         });
-        medications.Add(new Medication()
+        phoneAssignments.Add(new PhoneAssignment()
         {
             Id = 3,
-            PrepName = "Placebo"
+            PhoneNumber = 86754231
         });
 
 
 
-        return Ok(medications);
+        return Ok(phoneAssignments);
     }
 }

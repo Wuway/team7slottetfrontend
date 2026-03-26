@@ -13,42 +13,42 @@ public class ReminderController : ControllerBase
     //}
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetMedication(int id)
+    public async Task<IActionResult> GetReminder(int id)
     {
-        Medication medication = new Medication()
+        Reminder reminder = new Reminder()
         {
             Id = 1,
-            PrepName = "Fentanyl"
+            Title = "Ingen rygning på gangen"
         };
 
-        return Ok(medication);
+        return Ok(reminder);
     }
 
     [HttpGet]
-    public IActionResult GetAllResidents()
+    public IActionResult GetAllReminders()
     {
 
 
 
-        List<Medication> medications = new List<Medication>();
-        medications.Add(new Medication()
+        List<Reminder> reminders = new List<Reminder>();
+        reminders.Add(new Reminder()
         {
             Id = 1,
-            PrepName = "Fentanyl"
+            Title = "Ingen rygning på gangen"
         });
-        medications.Add(new Medication()
+        reminders.Add(new Reminder()
         {
             Id = 2,
-            PrepName = "Panodil"
+            Title = "Husk medicin tider"
         });
-        medications.Add(new Medication()
+        reminders.Add(new Reminder()
         {
             Id = 3,
-            PrepName = "Placebo"
+            Title = "Sengetid er 22:30"
         });
 
 
 
-        return Ok(medications);
+        return Ok(reminders);
     }
 }
