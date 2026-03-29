@@ -10,6 +10,8 @@ namespace slotlib.Enums
     {
         Administrator,
         Vagtansvarlig,
-        Plejepersonale
+        Plejepersonale,
+        Vikar,
+        Medicinansvarlig
     }
 }

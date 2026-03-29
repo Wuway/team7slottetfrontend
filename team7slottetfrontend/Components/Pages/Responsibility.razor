@@ -1,10 +1,41 @@
 @page "/responseability"
+@using slotlib.Models 
 
 <PageTitle>Ansvarsopgaver</PageTitle>
 
 <div class="header-container">
     <h2>Administration af Ansvar og Opgaver</h2>
-    <button class="btn-add" @onclick="ToggleAddForm">
+</div>
+
+<div class="date-navigation">
+    <button class="btn-date-nav" @onclick="GoToPreviousDay">
+        <span class="bi bi-chevron-left" aria-hidden="true"></span>
+    </button>
+    
+    <div class="date-display">@currentDate.ToString("dd-MM-yyyy")</div>
+
+    <button class="btn-date-nav" @onclick="GoToNextDay">
+        <span class="bi bi-chevron-right" aria-hidden="true"></span>
+    </button>
+</div>
+
+<div class="vagt-selector-wrapper">
+    <div class="vagt-selector-group">
+        <button class="vagt-btn @(activeShift == ShiftType.Morgen ? "active" : "")"
+                @onclick="() => SetShift(ShiftType.Morgen)">
+            Morgenvagt (07-15)
+        </button>
+        <button class="vagt-btn @(activeShift == ShiftType.Eftermiddag ? "active" : "")"
+                @onclick="() => SetShift(ShiftType.Eftermiddag)">
+            Eftermiddagsvagt (15-23)
+        </button>
+        <button class="vagt-btn @(activeShift == ShiftType.Nat ? "active" : "")"
+                @onclick="() => SetShift(ShiftType.Nat)">
+            Nattevagt (23-07)
+        </button>
+    </div>
+
+    <button class="btn-add vagt-add-button" @onclick="ToggleAddForm">
         <span class="bi bi-plus" aria-hidden="true"></span> Tilføj Ansvar
     </button>
 </div>
@@ -28,32 +59,60 @@
                 <tr>
                     <th class="col-id">#</th>
                     <th class="col-name">Opgave</th>
+                    <th class="col-worker">Medarbejder</th>
                     <th class="col-actions">Handlinger</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Toilet rengøring</td>
-                    <td>
-                        <div class="icon-actions">
-                            <button class="btn-icon">
-                                <span class="bi bi-chevron-down" aria-hidden="true"></span>
-                            </button>
-                            <button class="btn-icon">
-                                <span class="bi bi-chevron-up" aria-hidden="true"></span>
-                            </button>
-                            <button class="btn-icon btn-delete-icon">
-                                <span class="bi bi-trash" aria-hidden="true"></span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
+                @if (currentTasks == null || currentTasks.Count == 0)
+                {
+                    <tr><td colspan="4" class="text-center">Ingen opgaver endnu.</td></tr>
+                }
+                else
+                {
+                    @foreach (var task in currentTasks)
+                    {                        
+                        int index = currentTasks.IndexOf(task);
+                        
+                        <tr>
+                            <td>@(index + 1)</td> 
+                            <td>@task.Title</td> 
+                            <td class="text-center">
+                                <div class="select-wrap">
+                                    <select @bind="task.UserId" class="employee-dropdown">
+                                        <option value="">-- Vælg medarbejder --</option>
+                                        @foreach (var emp in employees)
+                                        {
+                                            <option value="@emp.Id">@emp.FirstName @emp.LastName (@emp.Alias)</option>
+                                        }
+                                    </select>
+                                </div>
+                            </td>
+                            
+                            <td>
+                                <div class="icon-actions">
+                                    <button class="btn-icon" 
+                                            @onclick="() => MoveTaskDown(task)" 
+                                            disabled="@(index == currentTasks.Count - 1)">
+                                        <span class="bi bi-chevron-down" aria-hidden="true"></span>
+                                    </button>
+                                    
+                                    <button class="btn-icon" 
+                                            @onclick="() => MoveTaskUp(task)" 
+                                            disabled="@(index == 0)">
+                                        <span class="bi bi-chevron-up" aria-hidden="true"></span>
+                                    </button>
+                                    
+                                    <button class="btn-icon btn-delete-icon" 
+                                            @onclick="() => DeleteTask(task)">
+                                        <span class="bi bi-trash" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
         </table>
     </div>
 </section>
-
-
-
-

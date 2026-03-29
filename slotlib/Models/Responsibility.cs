@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using slotlib.Enums;
 
 namespace slotlib.Models
 {
     public class Responsibility
     {
-        private int _id;
         public int Id { get; set; }
-
-        private string _title;
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public int SortOrder { get; set; }
+        public DateTime TaskDate { get; set; }
+        public ShiftType Shift { get; set; }
+        public int? UserId { get; set; }
+        public User? AssignedUser { get; set; }
     }
 }
