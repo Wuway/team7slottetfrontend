@@ -1,4 +1,20 @@
-﻿<header>MyApp</header>
-@code {
+﻿<header>
+    MyApp
+    <div>Dark/Lightmode</div>
+    <label class="switch">
+        <input type="checkbox" @onchange="ToggleTheme" />
+        <span class="slider"></span>
+    </label>
+</header>
 
+@inject IJSRuntime JS
+
+@code {
+    private bool _isLight = false;
+
+    private async Task ToggleTheme(ChangeEventArgs e)
+    {
+        _isLight = (bool)e.Value!;
+        await JS.InvokeVoidAsync("setTheme", _isLight ? "light" : "dark");
+    }
 }
