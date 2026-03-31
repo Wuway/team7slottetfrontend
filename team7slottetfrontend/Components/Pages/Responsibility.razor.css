@@ -55,7 +55,8 @@
         background-color: var(--secondery-button);
         padding: 12px 16px;
         border-bottom: 1px solid var(--borders);
-        font-weight: normal;
+        font-style: bold;
+        
     }
 
     /* Kolonnebredder og justering i overskrifterne */

@@ -3,43 +3,28 @@
 
 <PageTitle>Ansvarsopgaver</PageTitle>
 
+@* ============================================================
+   SIDE: Responsibility (/responseability)
+   FORMÅL: Administration af ansvar/opgaver pr. dato + vagt.
+   ============================================================ *@
+
 <div class="header-container">
     <h2>Administration af Ansvar og Opgaver</h2>
 </div>
 
-<div class="date-navigation">
-    <button class="btn-date-nav" @onclick="GoToPreviousDay">
-        <span class="bi bi-chevron-left" aria-hidden="true"></span>
-    </button>
-    
-    <div class="date-display">@currentDate.ToString("dd-MM-yyyy")</div>
+@* --- Dato-navigation (genbrugelig komponent: DateNavigator) --- *@
+<DateNavigator Date="currentDate" DateChanged="OnDateChanged" />
 
-    <button class="btn-date-nav" @onclick="GoToNextDay">
-        <span class="bi bi-chevron-right" aria-hidden="true"></span>
-    </button>
-</div>
-
-<div class="vagt-selector-wrapper">
-    <div class="vagt-selector-group">
-        <button class="vagt-btn @(activeShift == ShiftType.Morgen ? "active" : "")"
-                @onclick="() => SetShift(ShiftType.Morgen)">
-            Morgenvagt (07-15)
+@* --- Vagt-tabs (genbrugelig komponent: ShiftSelector) --- *@
+<ShiftSelector Value="activeShift" ValueChanged="SetShift">
+    <RightContent>
+        <button class="btn-add vagt-add-button" type="button" @onclick="ToggleAddForm">
+            <span class="bi bi-plus" aria-hidden="true"></span> Tilføj Ansvar
         </button>
-        <button class="vagt-btn @(activeShift == ShiftType.Eftermiddag ? "active" : "")"
-                @onclick="() => SetShift(ShiftType.Eftermiddag)">
-            Eftermiddagsvagt (15-23)
-        </button>
-        <button class="vagt-btn @(activeShift == ShiftType.Nat ? "active" : "")"
-                @onclick="() => SetShift(ShiftType.Nat)">
-            Nattevagt (23-07)
-        </button>
-    </div>
+    </RightContent>
+</ShiftSelector>
 
-    <button class="btn-add vagt-add-button" @onclick="ToggleAddForm">
-        <span class="bi bi-plus" aria-hidden="true"></span> Tilføj Ansvar
-    </button>
-</div>
-
+@* --- Skriv opgave panel (toggle)--- *@
 @if (isAddFormVisible)
 {
     <div class="add-form-container">
@@ -52,6 +37,7 @@
     </div>
 }
 
+@* --- Opgaveliste --- *@
 <section class="list-section">
     <div class="table-scroll-container">
         <table class="worker-table">

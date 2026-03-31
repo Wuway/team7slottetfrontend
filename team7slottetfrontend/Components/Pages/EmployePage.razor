@@ -2,72 +2,123 @@
 
 <PageTitle>Employee</PageTitle>
 
-<h2>Medarbejder Administration </h2>
+@* ============================================================
+   SIDE: EmployePage (/employee)
+   FORMÅL: Administration af medarbejdere.
 
-<section class="add-worker-section">
-    <div class="form-header">Tilføj Ny Medarbejder</div>
-    <div class="form-row">
-        <input type="text" placeholder="Fornavn" />
-        <input type="text" placeholder="Efternavn" />
-        <input type="text" placeholder="Alias" />
-        <input type="text" placeholder="4 cifret kode" />
-        <button class="btn-add">Tilføj</button>
-    </div>
-</section>
+   UI-områder:
+   - Toolbar: søg + toggle "Tilføj medarbejder"
+   - Opret/Rediger panel: EditForm med DataAnnotations validation
+   - Liste: tabel med synlighed (toggle), rolle (enum dropdown), actions (rediger/slet)
+   - Slet: bekræftelsesdialog
+   ============================================================ *@
+
+<ListToolbar Title="Medarbejder Administration">
+    <input class="employee-search" type="search" placeholder="Søg efter medarbejder" @bind="searchTerm" @bind:event="oninput" />
+    <button class="btn-add btn-add-list" type="button" @onclick="ToggleAddEmployeeForm">
+        Tilføj medarbejder
+    </button>
+</ListToolbar>
+
+@* --- Bekræftelsesdialog (genbrugelig komponent: ConfirmDialog) --- *@
+<ConfirmDialog IsOpen="showDeleteConfirmation"
+              IsOpenChanged="@(v => showDeleteConfirmation = v)"
+              Title="Bekræft Sletning"
+              ConfirmText="Slet"
+              CancelText="Annuller"
+              ConfirmButtonClass="danger"
+              OnCancel="CancelDelete"
+              OnConfirm="ExecuteDelete">
+    @if (employeeToDelete != null)
+    {
+        <p>Er du sikker på, at du vil slette medarbejderen: <strong>@employeeToDelete.FirstName @employeeToDelete.LastName</strong>?</p>
+        <p>Denne handling kan ikke fortrydes.</p>
+    }
+</ConfirmDialog>
 
 <section class="list-section">
-    <div class="list-header">
-        <h3>Liste over medarbejder</h3>
-        <input type="search" placeholder="Søg efter medarbejder" />
-        <button class="btn-search">Søg</button>
-    </div>
+    @* --- Opret/Rediger medarbejder (skjules/vises via ToggleAddEmployeeForm) --- *@
+    @if (isAddEmployeeFormVisible)
+    {
+        <section class="add-worker-section">
+            <div class="add-worker-card">
+                <EditForm Model="newEmployee" OnValidSubmit="HandleSubmit">
+                    <DataAnnotationsValidator />
 
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" placeholder="Fornavn" @bind="newEmployee.FirstName" />
+                            <ValidationMessage For="() => newEmployee.FirstName" />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" placeholder="Efternavn" @bind="newEmployee.LastName" />
+                            <ValidationMessage For="() => newEmployee.LastName" />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" placeholder="Alias" @bind="newEmployee.Alias" />
+                            <ValidationMessage For="() => newEmployee.Alias" />
+                        </div>
+
+                        <div class="form-group form-group-password">
+                            <input type="text" placeholder="6 cifret kode" maxlength="6" inputmode="numeric" @bind="newEmployee.Password" />
+                            <ValidationMessage For="() => newEmployee.Password" />
+                        </div>
+
+                        <div class="form-group form-group-role">
+                            @* Enum dropdown (genbrugelig komponent: EnumSelect<UserRole>) *@
+                            <EnumSelect TEnum="UserRole" Value="newEmployee.Role" ValueChanged="@(v => newEmployee.Role = v)" Options="AvailableRoles" />
+                        </div>
+
+                        <div class="form-group-actions">
+                            <button class="btn-add" type="submit">@(isEditing ? "Opdater" : "Tilføj")</button>
+                            <button class="btn-cancel" type="button" @onclick="ClearForm">Annuler</button>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
+        </section>
+    }
+
+    @* --- Medarbejderliste --- *@
     <div class="table-scroll-container">
-    <table class="worker-table">
-        <thead>
-            <tr>
-                <th>Fornavn</th>
-                <th>Efternavn</th>
-                <th>Alias</th>
-                <th class="col-fit text-center">Synlighed</th>
-                <!-- Skal skiftes ud med dropdown menu, i forhold til hvilken rolle man har. -->
-                <th class="col-fit">Rolle</th>
-                <th class="col-fit">Handlinger</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Eksempel ligesom på wireframe, men skal skiftes ud. -->
-            <tr>
-                <td>Bjarne</td>
-                <td>Brup</td>
-                <td>Bjerget</td>
-                <td class="text-center">
-                    <label class="switch">
-                    <input type="checkbox" >
-                    <span class="slider"></span>
-                    </label>
-                </td>
-                <td class="text-center">
-                    <div class="select-wrap">
-                        <select>
-                            <option>Admin</option>
-                            <option>Ansvarlig</option>
-                            <option>Medarbejder</option>
-                            <option>Vikar</option>               
-                        </select>
-                    </div>
-                </td>
-
-                <td class="text-center">
-                    <div class="col-actions">
-                        <button class="btn-edit">Rediger</button>
-                        <button class="btn-delete">Slet</button>
-                    </div>
-
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="worker-table">
+            <thead>
+                <tr>
+                    <th>Fornavn</th>
+                    <th>Efternavn</th>
+                    <th>Alias</th>
+                    <th class="col-fit text-center">Synlighed</th>
+                    <th class="col-role">Rolle</th>
+                    <th class="col-fit">Handlinger</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in FilteredEmployees)
+                {
+                    <tr>
+                        <td>@employee.FirstName</td>
+                        <td>@employee.LastName</td>
+                        <td>@employee.Alias</td>
+                        <td class="text-center">
+                            @* Toggle (genbrugelig komponent: ToggleSwitch) *@
+                            <ToggleSwitch Value="employee.ActiveDeactive" ValueChanged="@(v => employee.ActiveDeactive = v)" />
+                        </td>
+                        <td class="text-center col-role-cell">
+                            @* Enum dropdown (genbrugelig komponent: EnumSelect<UserRole>) *@
+                            <EnumSelect TEnum="UserRole" Value="employee.Role" ValueChanged="@(v => employee.Role = v)" Options="AvailableRoles" />
+                        </td>
+                        <td class="text-center">
+                            <div class="col-actions">
+                                <button class="btn-edit" type="button" @onclick="() => EditEmployee(employee)">Rediger</button>
+                                <button class="btn-delete" type="button" @onclick="() => ConfirmDelete(employee)">Slet</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </section>
 

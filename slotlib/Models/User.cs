@@ -21,7 +21,7 @@ namespace slotlib.Models
         [Required(ErrorMessage = "Alias er påkrævet.")]
         public string Alias { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Kode er påkrævet.")]
+        [Required(ErrorMessage = "Kode er mangler.")]
         [StringLength(6, MinimumLength = 6, ErrorMessage = "Koden skal bestå af præcis 6 tegn.")]
         public string Password { get; set; } = string.Empty; 
 

@@ -9,6 +9,7 @@ namespace team7slottetfrontend.Components.Pages
 {
     public partial class Responsibility : ComponentBase
     {
+        #region Felter/State (UI)
         private List<slotlib.Models.Responsibility> currentTasks = new List<slotlib.Models.Responsibility>();
         private List<User> employees = new List<User>();
 
@@ -19,7 +20,9 @@ namespace team7slottetfrontend.Components.Pages
         private ShiftType activeShift = ShiftType.Morgen;
         private TimeSpan shiftStart;
         private TimeSpan shiftEnd;
+        #endregion
 
+        #region Lifecycle
         protected override void OnInitialized()
         {
             LoadMockEmployees();
@@ -32,7 +35,9 @@ namespace team7slottetfrontend.Components.Pages
             else
                 SetShift(ShiftType.Nat);
         }
+        #endregion
 
+        #region UI-handling (Tilføj opgave)
         private void ToggleAddForm()
         {
             isAddFormVisible = !isAddFormVisible;
@@ -44,6 +49,7 @@ namespace team7slottetfrontend.Components.Pages
             newTaskName = "";
         }
 
+        // TODO (API): POST /responsibilities
         private void SaveTask()
         {
             if (!string.IsNullOrWhiteSpace(newTaskName))
@@ -64,7 +70,10 @@ namespace team7slottetfrontend.Components.Pages
                 newTaskName = "";
             }
         }
+        #endregion
 
+        #region Data (Mock) – skiftes til API-kald
+        // TODO (API): GET /employees (til dropdown)
         private void LoadMockEmployees()
         {
             employees = new List<User>
@@ -75,6 +84,7 @@ namespace team7slottetfrontend.Components.Pages
             };
         }
 
+        // TODO (API): GET /responsibilities?date=...&shift=...
         private void LoadTasksForCurrentShift()
         {
             currentTasks = new List<slotlib.Models.Responsibility>
@@ -97,7 +107,9 @@ namespace team7slottetfrontend.Components.Pages
                 }
             };
         }
+        #endregion
 
+        #region Dato + vagt (navigation/valg)
         private void GoToPreviousDay()
         {
             currentDate = currentDate.AddDays(-1);
@@ -107,6 +119,12 @@ namespace team7slottetfrontend.Components.Pages
         private void GoToNextDay()
         {
             currentDate = currentDate.AddDays(1);
+            LoadTasksForCurrentShift();
+        }
+
+        private void OnDateChanged(DateTime next)
+        {
+            currentDate = next;
             LoadTasksForCurrentShift();
         }
 
@@ -130,15 +148,17 @@ namespace team7slottetfrontend.Components.Pages
             }
             LoadTasksForCurrentShift();
         }
+        #endregion
 
+        #region Tabel handlinger (sortér/slet)
         private void MoveTaskUp(slotlib.Models.Responsibility task)
         {
-            int index = currentTasks.IndexOf(task);
+            int index = currentTasks.IndexOf(task); // Find indekset for den aktuelle opgave
             if (index > 0)
             {
-                var temp = currentTasks[index - 1];
-                currentTasks[index - 1] = task;
-                currentTasks[index] = temp;
+                var temp = currentTasks[index - 1]; // Gem den forrige opgave
+                currentTasks[index - 1] = task; // Flyt den aktuelle opgave op
+                currentTasks[index] = temp; // Flyt den tidligere opgave ned
             }
         }
 
@@ -149,7 +169,7 @@ namespace team7slottetfrontend.Components.Pages
             {
                 var temp = currentTasks[index + 1];
                 currentTasks[index + 1] = task;
-                currentTasks[index] = temp;
+                currentTasks[index] = temp; 
             }
         }
 
@@ -157,5 +177,6 @@ namespace team7slottetfrontend.Components.Pages
         {
             currentTasks.Remove(task);
         }
+        #endregion
     }
 }
