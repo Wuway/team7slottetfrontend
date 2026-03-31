@@ -1,10 +1,15 @@
 ﻿<header>
-    MyApp
-    <div>Dark/Lightmode</div>
-    <label class="switch">
-        <input type="checkbox" @onchange="ToggleTheme" />
-        <span class="slider"></span>
-    </label>
+
+    @* left section  *@
+    <div>App</div>
+
+    @* right section *@
+    <div>
+        <label class="switch">
+            <input type="checkbox" @onchange="ToggleTheme" />
+            <span class="slider"></span>
+        </label>
+    </div>
 </header>
 
 @inject IJSRuntime JS
