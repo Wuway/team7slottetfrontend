@@ -1,6 +1,7 @@
 /* ============================================================
-   KOMPONENT: EnumSelect.razor.css
-   FORMÅL: Ens styling af enum-dropdown på tværs af sider.
+   KOMPONENT: EmployeeSelect.razor.css
+   FORMÅL: Ens styling af medarbejder-dropdown på tværs af sider.
+
    ============================================================ */
 
 .select-wrap select {

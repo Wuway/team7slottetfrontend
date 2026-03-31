@@ -64,15 +64,10 @@
                             <td>@(index + 1)</td> 
                             <td>@task.Title</td> 
                             <td class="text-center">
-                                <div class="select-wrap">
-                                    <select @bind="task.UserId" class="employee-dropdown">
-                                        <option value="">-- Vælg medarbejder --</option>
-                                        @foreach (var emp in employees)
-                                        {
-                                            <option value="@emp.Id">@emp.FirstName @emp.LastName (@emp.Alias)</option>
-                                        }
-                                    </select>
-                                </div>
+                                <EmployeeSelect Value="task.UserId"
+                                                ValueChanged="@(v => task.UserId = v)"
+                                                Employees="employees"
+                                                Class="employee-dropdown" />
                             </td>
                             
                             <td>
