@@ -11,5 +11,8 @@ namespace slotlib.Models
         public ShiftType Shift { get; set; }
         public int? UserId { get; set; }
         public User? AssignedUser { get; set; }
+
+        /// <summary>True når opgaven er markeret som udført (vises som toggle i UI).</summary>
+        public bool IsCompleted { get; set; }
     }
 }

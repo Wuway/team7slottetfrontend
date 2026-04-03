@@ -62,13 +62,21 @@
     /* Kolonnebredder og justering i overskrifterne */
     .col-id { width: 50px; text-align: left; }      
     .col-name { width: auto; text-align: left; } /* Lad opgaven fylde resten */
-    .col-worker { width: 200px; text-align: left; } /* Ny klasse til medarbejder */
+    .col-worker { width: 200px; text-align: center; }
+    /* Status: toggle (ToggleSwitch) – samme visuelle sprog som EmployePage */
+    .col-status { width: 110px; text-align: center; }
     .col-actions { width: 120px; text-align: right; }
 
-    /* Sørger for at selve cellerne følger præcis samme justering som overskrifterne */
+    /* Celle-justering: # | opgave | medarbejder | status | handlinger */
     .worker-table td:nth-child(1) { text-align: left; }
     .worker-table td:nth-child(2) { text-align: left; }
-    .worker-table td:nth-child(3) { text-align: right; }
+    .worker-table td:nth-child(3) { text-align: center; }
+    .worker-table td:nth-child(4) { text-align: center; }
+    .worker-table td:nth-child(5) { text-align: right; }
+
+    .col-status-cell {
+        vertical-align: middle;
+    }
 
     /* Tabel celler general styling */
     .worker-table td {

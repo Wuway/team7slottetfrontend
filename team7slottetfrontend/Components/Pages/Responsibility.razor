@@ -46,13 +46,14 @@
                     <th class="col-id">#</th>
                     <th class="col-name">Opgave</th>
                     <th class="col-worker">Medarbejder</th>
+                    <th class="col-status">Status</th>
                     <th class="col-actions">Handlinger</th>
                 </tr>
             </thead>
             <tbody>
                 @if (currentTasks == null || currentTasks.Count == 0)
                 {
-                    <tr><td colspan="4" class="text-center">Ingen opgaver endnu.</td></tr>
+                    <tr><td colspan="5" class="text-center">Ingen opgaver endnu.</td></tr>
                 }
                 else
                 {
@@ -69,7 +70,11 @@
                                                 Employees="employees"
                                                 Class="employee-dropdown" />
                             </td>
-                            
+                            <td class="text-center col-status-cell">
+                                @* Samme toggle som Synlighed på EmployePage – følger dag/nat via CSS-variabler *@
+                                <ToggleSwitch Value="task.IsCompleted"
+                                              ValueChanged="@(v => task.IsCompleted = v)" />
+                            </td>
                             <td>
                                 <div class="icon-actions">
                                     <button class="btn-icon" 

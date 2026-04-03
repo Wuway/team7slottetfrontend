@@ -61,7 +61,8 @@ namespace team7slottetfrontend.Components.Pages
                     Id = newId,
                     Title = newTaskName,
                     Shift = activeShift,
-                    TaskDate = currentDate.Date
+                    TaskDate = currentDate.Date,
+                    IsCompleted = false
                 };
 
                 currentTasks.Add(newTask);
@@ -95,7 +96,8 @@ namespace team7slottetfrontend.Components.Pages
                     Title = "Toilet rengøring",
                     UserId = 1,
                     Shift = activeShift,
-                    TaskDate = currentDate.Date
+                    TaskDate = currentDate.Date,
+                    IsCompleted = false
                 },
                 new slotlib.Models.Responsibility
                 {
@@ -103,7 +105,8 @@ namespace team7slottetfrontend.Components.Pages
                     Title = "Tjekke medicinskab",
                     UserId = 2,
                     Shift = activeShift,
-                    TaskDate = currentDate.Date
+                    TaskDate = currentDate.Date,
+                    IsCompleted = true
                 }
             };
         }
@@ -151,6 +154,8 @@ namespace team7slottetfrontend.Components.Pages
         #endregion
 
         #region Tabel handlinger (sortér/slet)
+        // TODO (API): PATCH /responsibilities/{id} med IsCompleted når brugeren skifter toggle (bind til ToggleSwitch)
+
         private void MoveTaskUp(slotlib.Models.Responsibility task)
         {
             int index = currentTasks.IndexOf(task); // Find indekset for den aktuelle opgave
