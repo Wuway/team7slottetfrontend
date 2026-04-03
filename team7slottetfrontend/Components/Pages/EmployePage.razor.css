@@ -26,7 +26,7 @@
 /* Tilføj Ny Medarbejder Sektion – samme radius som Responsibility-liste */
 .add-worker-section {
     margin-bottom: 30px;
-    /* no border here – border lives on the card so it can shrink to content */
+   
 }
 
 .add-worker-section ::deep .validation-summary {
@@ -36,7 +36,6 @@
     font-size: 0.95em;
 }
 
-/* removed old tab header */
 
 .add-worker-card {
     display: block;
@@ -68,20 +67,20 @@
     min-width: 120px;
 }
 
-/* Password er kun 6 cifre -> lidt smallere felt */
+/* Password 6 cifre */
 .form-group-password {
     flex: 0 0 110px;
     max-width: 110px;
     min-width: 110px;
 }
 
-/* Role dropdown: lidt smallere og med samme layout som resten af formularfelterne */
+/* Role dropdowne */
 .form-group-role {
     flex: 0 0 140px;
     max-width: 140px;
 }
 
-/* Target all direct child inputs/selects of form-group */
+
 .form-group > ::deep input,
 .form-group > ::deep select {
     width: 100%;
@@ -94,7 +93,7 @@
     box-sizing: border-box;
 }
 
-/* Formularens rolle-dropdown ligger inde i .select-wrap (så vi styler den separat) */
+
 .form-group ::deep .select-wrap {
     width: 100%;
 }
@@ -115,8 +114,6 @@
     color: var(--status-high);
     font-size: 0.8em;
     display: block;
-    /* Reserver plads selv når der ikke er fejl,
-       så knapper og input ikke hopper ved valideringsbeskeder. */
     min-height: 1.1em;
     line-height: 1.1em;
 }
@@ -169,7 +166,6 @@
     font-weight: bold;
 }
 
-/* list header is handled by ListToolbar now */
 
 .btn-add-list {
     padding: 8px 16px;
@@ -223,7 +219,7 @@
     color: var(--primery-text);
 }
 
-/* Rolle-kolonne: giv plads til tekst/selector uden at blive klemt */
+/* Rolle-kolonne */
 .col-role,
 .col-role-cell {
     width: 220px;
