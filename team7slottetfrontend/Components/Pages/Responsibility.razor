@@ -31,8 +31,8 @@
         <input type="text" class="input-task" placeholder="Skriv en ny opgave..." @bind="newTaskName" />
         
         <div class="form-actions">
+            <button class="btn-save" @onclick="SaveTask">Tilføj</button>
             <button class="btn-cancel" @onclick="CancelAdd">Annuller</button>
-            <button class="btn-save" @onclick="SaveTask">Tilføj opgave</button>
         </div>
     </div>
 }

@@ -176,13 +176,19 @@
     }
 /* --- Gør at knapperne i Tilføj-vinduet ikke bliver for små --- */
     .btn-save {
-        background-color: var(--status-low); 
-        color: var(--inverted-text);
-        border: none;
-        padding: 10px 16px;
-        border-radius: var(--mid-radius);
-        cursor: pointer;
+         flex-shrink: 0;
+    background-color: var(--primery-button);
+    color: var(--inverted-text);
+    border: none;
+    height: 40px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    white-space: nowrap;
     }
+
+   
 /* --- Tilføj hover-effekt til begge knapper --- */
     .btn-cancel:hover, .btn-save:hover {
         opacity: 0.8;
