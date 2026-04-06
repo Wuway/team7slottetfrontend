@@ -1,0 +1,39 @@
+﻿@page "/phonepage"
+
+<h2>Administration af vagt telefoner</h2>
+
+<div class="phone-top-row">
+    <div class="helper-text">Måske vælge Vagttidspunkt? Dato?</div>
+    <button class="btn-add-phone">+ Tilføj telefon</button>
+</div>
+
+<div class="phones-wrapper">
+    <div class="phones-header">
+        <div>Telefonnummer</div>
+        <div>Type</div>
+        <div>Bruger</div>
+    </div>
+
+    @foreach (var phone in phones)
+    {
+        <div class="phone-row">
+            <div>@phone.PhoneNumber</div>
+            <div>
+                <select>
+                    @foreach (var type in phoneTypes)
+                    {
+                        <option selected="@(type == phone.Type)">@type</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <select>
+                    @foreach (var user in users)
+                    {
+                        <option selected="@(user == phone.User)">@user</option>
+                    }
+                </select>
+            </div>
+        </div>
+    }
+</div>

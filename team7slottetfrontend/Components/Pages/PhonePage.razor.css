@@ -1,0 +1,61 @@
+﻿h2 {
+    color: var(--primery-text);
+    margin-bottom: 20px;
+}
+
+.phone-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.helper-text {
+    color: red;
+    font-size: 0.9em;
+}
+
+.btn-add-phone {
+    background-color: var(--primery-button);
+    color: var(--inverted-text);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.phones-wrapper {
+    border: 1px solid var(--borders);
+    background-color: var(--surface);
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.phones-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    font-weight: bold;
+    padding: 10px 12px;
+    border: 1px solid var(--borders);
+    border-radius: 4px;
+    margin-bottom: 12px;
+    background-color: var(--surface);
+}
+
+.phone-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    align-items: center;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+}
+
+select {
+    padding: 6px 8px;
+    border: 1px solid var(--borders);
+    border-radius: 4px;
+    background-color: white;
+}
