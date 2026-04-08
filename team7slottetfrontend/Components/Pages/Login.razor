@@ -3,32 +3,39 @@
 
 <PageTitle>Login</PageTitle>
 
-<h3>Login</h3>
+<div class="login-page">
+    <div class="login-card">
+        <div class="login-header">
+            <p>Digitalt Overlapsystem</p>
+        </div>
 
+        <section class="login-body">
+            <h2>Log ind på Plejehjemmets Terminal</h2>
 
+            <div class="input-group">
+                <input type="text"
+                       placeholder="Indtast plejehjemmets brugernavn"
+                       @bind="Username" />
+            </div>
 
-<div>
-    <div>
-        <p>Digitalt Overlapsystem</p>
+            <div class="input-group">
+                <input type="password"
+                       placeholder="Indtast kodeord"
+                       @bind="Password" />
+            </div>
+
+            <div class="button-group">
+                <button class="login-btn" @onclick="LoginUser">Videre</button>
+            </div>
+
+            <div class="help-text">
+                <p>Har du glemt kodeord?</p>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+            {
+                <p class="error-text">@ErrorMessage</p>
+            }
+        </section>
     </div>
-
-    <section>
-        <h2>Log ind på Plejehjemmets Terminal</h2>
-
-        <div>
-            <input type="text" placeholder="Indtast plejehjemmets brugernavn" />
-        </div>
-
-        <div>
-            <input type="password" placeholder="Indtast kodeord" />
-        </div>
-
-        <div>
-            <button>Videre</button>
-        </div>
-
-        <div>
-            <p>Har du glemt kodeord?</p>
-        </div>
-    </section>
 </div>
