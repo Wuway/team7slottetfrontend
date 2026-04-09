@@ -1,9 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using slotlib.data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 //erstattet med builder.Services.AddControllers();
 //builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 var app = builder.Build();
 
