@@ -1,11 +1,9 @@
 ﻿@page "/plejekort"
 
 
-<div class="date-nav">
-    <button>&#8249;</button>
-    <span id="dateLabel">Torsdag d. 26-02-2026</span>
-    <button>&#8250;</button>
-</div>
+
+@* --- Dato-navigation (genbrugelig komponent: DateNavigator) --- *@
+<DateNavigator Date="currentDate" DateChanged="OnDateChanged" />
 
 <div class="columns ">
 
@@ -30,6 +28,7 @@
         </div>
     </div>
     </aside>
+
     <!-- DETAIL CARD -->
     <aside>
     <div class="detail-card">
@@ -174,7 +173,7 @@
 </div>
 
 @code {
-    private slotlib.Enums.RiskIndicator status = slotlib.Enums.RiskIndicator.High;
+private slotlib.Enums.RiskIndicator status = slotlib.Enums.RiskIndicator.High;
 
     private string StatusClass => status switch
     {
