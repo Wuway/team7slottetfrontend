@@ -3,11 +3,16 @@
 <h2>Administration af vagt telefoner</h2>
 
 <div class="phone-top-row">
-    <div class="helper-text">Måske vælge Vagttidspunkt? Dato?</div>
     <button class="btn-add-phone">+ Tilføj telefon</button>
 </div>
 
-<div class="phones-wrapper">
+@* --- Dato-navigation (genbrugelig komponent: DateNavigator) --- *@
+<DateNavigator Date="currentDate" DateChanged="OnDateChanged" />
+
+@* --- Vagt-tabs (genbrugelig komponent: ShiftSelector) --- *@
+<ShiftSelector Value="activeShift" ValueChanged="SetShift">
+</ShiftSelector>
+
     <div class="phones-header">
         <div>Telefonnummer</div>
         <div>Type</div>
@@ -36,4 +41,3 @@
             </div>
         </div>
     }
-</div>
