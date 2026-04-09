@@ -2,15 +2,8 @@
 
 <h2>Hændelseslog</h2>
 
-<div class="log-toolbar">
-    <button class="nav-arrow">&#8249;</button>
-
-    <div class="log-date">Torsdag d. 26-02-2026</div>
-
-    <button class="nav-arrow">&#8250;</button>
-
-    <button class="today-button">I dag</button>
-</div>
+@* --- Dato-navigation (genbrugelig komponent: DateNavigator) --- *@
+<DateNavigator Date="currentDate" DateChanged="OnDateChanged" />
 
 <div class="log-wrapper">
     <div class="log-header">

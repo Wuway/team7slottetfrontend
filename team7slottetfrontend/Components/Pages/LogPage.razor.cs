@@ -2,6 +2,11 @@
 {
     public partial class LogPage
     {
+        private DateTime currentDate = DateTime.Now;
+        private void OnDateChanged(DateTime next)
+        {
+            currentDate = next;
+        }
         private List<LogEntry> logs = new List<LogEntry>
         {
             new LogEntry
