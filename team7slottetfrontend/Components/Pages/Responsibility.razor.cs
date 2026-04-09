@@ -113,18 +113,7 @@ namespace team7slottetfrontend.Components.Pages
         #endregion
 
         #region Dato + vagt (navigation/valg)
-        private void GoToPreviousDay()
-        {
-            currentDate = currentDate.AddDays(-1);
-            LoadTasksForCurrentShift();
-        }
-
-        private void GoToNextDay()
-        {
-            currentDate = currentDate.AddDays(1);
-            LoadTasksForCurrentShift();
-        }
-
+        
         private void OnDateChanged(DateTime next)
         {
             currentDate = next;

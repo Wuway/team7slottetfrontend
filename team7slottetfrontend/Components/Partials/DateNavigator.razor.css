@@ -11,9 +11,27 @@
     margin: 20px auto;
 }
 
+.date-center {
+    position: relative; /* anchor til CalendarPopover (position: absolute) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .date-display {
     min-width: 120px;
     text-align: center;
+    background: transparent;
+    border: none;
+    color: var(--primery-text);
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: var(--mid-radius);
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.date-display:hover {
+    background-color: var(--secondery-button);
 }
 
 .btn-date-nav {
