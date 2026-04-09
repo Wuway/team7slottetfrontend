@@ -60,9 +60,9 @@ public partial class CalendarPopover : ComponentBase
             var daysInMonth = DateTime.DaysInMonth(firstOfMonth.Year, firstOfMonth.Month);
 
             // Mandag som start på ugen: Monday=0, Tuesday=1, ... Sunday=6
-            var firstDayIndex = ((int)firstOfMonth.DayOfWeek + 6) % 7;
+            var firstDayIndex = ((int)firstOfMonth.DayOfWeek + 6) % 7;  //
 
-            var cells = new List<Cell>(42);
+            var cells = new List<Cell>(42); //
             var today = DateTime.Today;
             var selected = Value.Date;
 

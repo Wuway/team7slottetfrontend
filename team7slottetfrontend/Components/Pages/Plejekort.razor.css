@@ -103,8 +103,7 @@
 
 /* HEADER CONTAINER (this is the important one) */
 .detail-header {
-    background: red;
-    color: #fff;
+    color: var(--inverted-text);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -112,36 +111,63 @@
     padding: 14px 20px;
 }
 
-/* TITLE */
-.detail-header h2 {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 100;
-    flex: 1; /* takes available space */
-    min-width: 0; /* prevents overflow bugs */
+/* Kritisk (rød) */
+.detail-header.status-kritisk {
+    background-color: var(--status-high);
+}
+/* Ustabil (gul) */
+.detail-header.status-ustabil {
+    background-color: var(--status-mid);
+}
+/* Stabil (grøn) */
+.detail-header.status-stabil {
+    background-color: var(--status-low);
 }
 
-/* BUTTON */
-.kritisk-btn {
-    background: darkred; /* since your var wasn't defined */
-    color: #fff;
-    border: 2px solid black;
-    border-radius: 6px;
-    padding: 6px 14px;
-    font-family: var(--font);
+/* Kritisk dropdown (wrapper + select) */
+.kritisk-wrap {
+    position: relative;
+    border-radius: var(--mid-radius);
+    flex-shrink: 0;
+}
+
+.kritisk-wrap.status-kritisk { background-color: var(--status-high); }
+.kritisk-wrap.status-ustabil { background-color: var(--status-mid); }
+.kritisk-wrap.status-stabil { background-color: var(--status-low); }
+
+.kritisk-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background: transparent;
+    color: var(--inverted-text);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: var(--mid-radius);
+    padding: 6px 34px 6px 12px; /* plads til pil */
+    height: 34px;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0; /* prevents shrinking */
 }
 
-.arrow {
-    display: inline-block;
-    font-size: 14px;
-    line-height: 1;
+/* Dropdown-listen (options) er "native", men vi kan ofte sætte læsbar tekstfarve */
+.kritisk-select option {
+    /* Neutral dropdown-liste (browser UI): altid læsbar */
+    color: #111;
+    background-color: #fff;
+}
+
+
+.kritisk-wrap::after {
+    content: '▾';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--inverted-text);
+    pointer-events: none;
+    opacity: 0.95;
 }
 
 .detail-body {

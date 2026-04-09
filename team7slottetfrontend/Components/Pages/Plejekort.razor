@@ -34,11 +34,15 @@
     <aside>
     <div class="detail-card">
 
-        <div class="detail-header">
+        <div class="detail-header @StatusClass">
             <h2>Anne Rasmussen</h2>
-            <button class="kritisk-btn">
-                Kritisk <span class="arrow">&#8964;</span>
-            </button>
+            <div class="kritisk-wrap @StatusClass">
+                <select class="kritisk-select" @bind="status" aria-label="Status">
+                    <option value="@slotlib.Enums.RiskIndicator.High">Kritisk</option>
+                    <option value="@slotlib.Enums.RiskIndicator.Middle">Ustabil</option>
+                    <option value="@slotlib.Enums.RiskIndicator.Low">Stabil</option>
+                </select>
+            </div>
         </div>
 
         <div class="detail-body">
@@ -170,5 +174,18 @@
 </div>
 
 @code {
+    private slotlib.Enums.RiskIndicator status = slotlib.Enums.RiskIndicator.High;
+
+    private string StatusClass => status switch
+    {
+        slotlib.Enums.RiskIndicator.High => "status-kritisk",
+        slotlib.Enums.RiskIndicator.Middle => "status-ustabil",
+        slotlib.Enums.RiskIndicator.Low => "status-stabil",
+        _ => "status-kritisk"
+    };
+
+    
+   
+
 
 }

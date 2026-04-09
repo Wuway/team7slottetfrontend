@@ -10,6 +10,6 @@ namespace slotlib.Enums
     {
         Low,
         Middle,
-        Hight
+        High
     }
 }
