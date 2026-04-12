@@ -9,7 +9,11 @@
 
     <!-- RESIDENT PICKER -->
     <aside>
-    <div>
+       <ResidentPicker
+           Residents="pickerResidents"
+           SelectedResident="selectedPickerResident"
+           SelectedResidentChanged="OnResidentSelected" />
+@*     <div>
         <p class="picker-label">Vælg Beboer</p>
 
         <div class="picker-list">
@@ -26,12 +30,14 @@
 
             <div class="picker-scroll-btn">&#8964;</div>
         </div>
-    </div>
+    </div> *@
     </aside>
 
     <!-- DETAIL CARD -->
     <aside>
-    <div class="detail-card">
+        <DetailCard Resident="currentResident"
+                    ResidentChanged="OnDetailChanged"/>
+@*     <div class="detail-card">
 
         <div class="detail-header @StatusClass">
             <h2>Anne Rasmussen</h2>
@@ -167,24 +173,7 @@
 
         </div>
 
-    </div>
+    </div> *@
     </aside>
 
 </div>
-
-@code {
-private slotlib.Enums.RiskIndicator status = slotlib.Enums.RiskIndicator.High;
-
-    private string StatusClass => status switch
-    {
-        slotlib.Enums.RiskIndicator.High => "status-kritisk",
-        slotlib.Enums.RiskIndicator.Middle => "status-ustabil",
-        slotlib.Enums.RiskIndicator.Low => "status-stabil",
-        _ => "status-kritisk"
-    };
-
-    
-   
-
-
-}
