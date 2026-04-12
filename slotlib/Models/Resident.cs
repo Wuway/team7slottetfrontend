@@ -32,7 +32,19 @@ namespace slotlib.Models
         private string _status;
         public string Status { get; set; }
 
+        private string _shoppingNotes;
+        public string ShoppingNotes { get; set; }
+
+        private string _paymentNotes;
+        public string PaymentNotes { get; set; }
+
+        private string _message;
+        public string Message { get; set; }
+
+
+
         public List<ScheduleMedication> ScheduleMedications { get; set; } = new();
+        public List<PatientTime> PatientTime { get; set; } = new();
 
 
     }
