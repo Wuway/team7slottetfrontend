@@ -1,34 +1,153 @@
 ﻿@using slotlib.Models
+@using slotlib.Enums
 
 @page "/dashboard"
 
 <PageTitle>Dashboard</PageTitle>
 
-<h1>Dashboard</h1>
+<h3>Dashboard</h3>
 
 <div class="dashboard-container">
 
     @foreach (var resident in residents)
     {
-    <div class="Plejekort">
-            <h2>@resident.FirstName @resident.LastName</h2>
+		<Card>
+            <Header>
+                <div class="risk-badge @GetRiskClass(resident.RiskLevel)">
+                    <h3>@resident.FirstName @resident.LastName</h3>
+                </div>
+            </Header>
 
-    <div class="info-section">
-                 <h5>Medicin</h5>
-                @foreach (var medicin in resident.ScheduleMedications)
-                {
-                    <div class="medicin-row">
-                        <span class="tid">@medicin.DispenseAt.ToShortTimeString()</span>             
+            <ChildContent>
+
+                <div class="info-row">
+                    <h5>Medicin</h5>
+
+                    <div class="info-content">
+                        @foreach (var medicin in resident.ScheduleMedications)
+                        {
+                            <div class="medicin-row @(medicin.IsGiven ? "done" : "pending")">
+                                <span class="tid">@medicin.DispenseAt.ToShortTimeString()</span>
+                                <span class="medicin-status">
+                                    @(medicin.IsGiven ? "Givet" : "Ikke givet")
+                                </span>
+                            </div>
+                        }
                     </div>
-                }
-    </div>
+                </div>
 
-    <div class="status">
-        <h5>Status</h5>
-        <span>@resident.Status</span>
-    </div>
-</div>
+
+
+                <div class="info-row">
+                    <h5>PN-tid</h5>
+
+                    <div class="pn-container">
+                        @if (resident.PatientTimes != null && resident.PatientTimes.Any())
+                        {
+                            @foreach (var pn in resident.PatientTimes)
+                            {
+                                <div class="pn-row">
+                                    <span class="tid">@pn.DispensedAt.ToShortTimeString()</span>
+                                    <span class="pn-note">@pn.Note</span>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="pn-row empty">
+                                <span>Ingen PN-tider</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <h5>Indkøbsdag</h5>
+
+                    @if (!string.IsNullOrEmpty(resident.ShoppingDay))
+                    {
+                        <div class="info-box">     
+                            <span>@resident.ShoppingDay</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="info-box">Ingen indkøbsdag</div>
+                    }
+                </div>
+
+                <div class="info-row">
+                    <h5>Betaling</h5>
+                    @if (!string.IsNullOrEmpty(resident.PaymentMethod))
+                    {
+                        <div class="info-box">
+                            <span>@resident.PaymentMethod</span>
+                          
+                        </div>
+                    }
+
+                    else
+                    {
+                        <div class="info-box">Ingen betalingsmetode registreret</div>
+                    }
+
+                </div>
+
+                <div class="info-row">
+                    <h5>Status</h5>
+
+                    @if (!string.IsNullOrWhiteSpace(resident.Status))
+                    {
+                        <div class="info-box status-box">
+                            <span>@resident.Status</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="info-box status-box">Ingen status</div>
+                    }
+                </div>
+
+              
+            </ChildContent>
+
+        </Card>
+    
     }
+</div>
+
+<div class="news-banner">
+    <div class="ticker">
+        <div class="ticker-track">
+
+        <span class="item">HUSK RISIKOVURDERING</span>
+        <span class="separator">•</span>
+
+        <span class="item">HUSK SUNDHEDSPLANER</span>
+        <span class="separator">•</span>
+
+        <span class="item">HUSK MEDICIN</span>
+        <span class="separator">•</span>
+
+        <span class="item">HUSK DELMÅL</span>
+        <span class="separator">•</span>
+
+
+
+        <span class="item">HUSK RISIKOVURDERING</span>
+        <span class="separator">•</span>
+
+        <span class="item">HUSK SUNDHEDSPLANER</span>
+        <span class="separator">•</span>
+
+        <span class="item">HUSK MEDICIN</span>
+        <span class="separator">•</span>
+
+        <span class="item">HUSK DELMÅL</span>
+        <span class="separator">•</span>
+
+        </div>
+    </div>
 </div>
 
 @code {
@@ -36,28 +155,188 @@
     List<Resident> residents = new List<Resident>
     {
         new Resident {
+            RiskLevel = RiskIndicator.High,
             FirstName = "Arne",
-            LastName = "Rasmussen",                
-            Status = "OK",
+            LastName = "Rasmussen",  
+            PaymentMethod = "Kontant",
+            Status = "Godt humør",
 
             ScheduleMedications = new List<ScheduleMedication>
             {
-                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(8) },
-                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(12) },
-                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(18) }
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(8), IsGiven = true },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(12), IsGiven = false },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(18) },       
+            },
+
+                PatientTimes = new List<PatientTime>
+            {
+               
             }
         },
         new Resident {
+            RiskLevel = RiskIndicator.Middle,
             FirstName = "Jens",
 			LastName = "Jensen",
+            ShoppingDay = "Mandag",
+            PaymentMethod = "Kort",
             Status = "Kræver opmærksomhed",
 
             ScheduleMedications = new List<ScheduleMedication>
             {
                 new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(8) },
-                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(12) },
-                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(18) }
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(12), IsGiven = false },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(18), IsGiven = true },
+          
+            },
+
+            PatientTimes = new List<PatientTime>
+            {
+                new PatientTime { DispensedAt = DateTime.Today.AddHours(10), Note = "PN" },
+                new PatientTime { DispensedAt = DateTime.Today.AddHours(15), Note = "PN" },
+            }
+        },
+
+        new Resident {
+            RiskLevel = RiskIndicator.Low,
+            FirstName = "Gitte",
+            LastName = "Hansen",
+            ShoppingDay = "Onsdag",
+            PaymentMethod = "Ingen betalingsmetode angivet",
+            Status = "OK",
+
+            ScheduleMedications = new List<ScheduleMedication>
+            {
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(8) },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(12), IsGiven = false },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(18), IsGiven = true },
+
+            },
+
+            PatientTimes = new List<PatientTime>
+            {
+                new PatientTime { DispensedAt = DateTime.Today.AddHours(10), Note = "PN" },
+                new PatientTime { DispensedAt = DateTime.Today.AddHours(15), Note = "PN" },
+            }
+        },
+
+        new Resident {
+            RiskLevel = RiskIndicator.Low,
+            FirstName = "Sarah",
+            LastName = "Madsen",
+            ShoppingDay = "Torsdag",
+            PaymentMethod = "Kontant",
+            Status = "Er lidt nervøs for tandlægebesøg senere i dag",
+
+            ScheduleMedications = new List<ScheduleMedication>
+            {
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(8) },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(12), IsGiven = false },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(18), IsGiven = true },
+
+            },
+
+            PatientTimes = new List<PatientTime>
+            {
+                new PatientTime { DispensedAt = DateTime.Today.AddHours(10), Note = "PN" },
+                new PatientTime { DispensedAt = DateTime.Today.AddHours(15), Note = "PN" },
+            }
+        },
+
+        new Resident {
+            RiskLevel = RiskIndicator.Middle,
+            FirstName = "Mikkel",
+            LastName = "Jensen",
+            ShoppingDay = "Mandag",
+            PaymentMethod = "Kort",
+            Status = "OK",
+
+            ScheduleMedications = new List<ScheduleMedication>
+            {
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(8) },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(12), IsGiven = false },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(18), IsGiven = true },
+
+            },
+
+            PatientTimes = new List<PatientTime>
+            {
+                new PatientTime { DispensedAt = DateTime.Today.AddHours(10), Note = "PN" },
+                new PatientTime { DispensedAt = DateTime.Today.AddHours(15), Note = "PN" },
+            }
+        },
+
+         new Resident {
+            RiskLevel = RiskIndicator.High,
+            FirstName = "Lars",
+            LastName = "Larsen",
+            ShoppingDay = "Tirsdag",
+            PaymentMethod = "Kontant",
+            Status = "I dårligt humør pga vikar",
+
+            ScheduleMedications = new List<ScheduleMedication>
+            {
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(8) },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(12), IsGiven = false },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(18), IsGiven = true },
+
+            },
+
+            PatientTimes = new List<PatientTime>
+            {
+                new PatientTime { DispensedAt = DateTime.Today.AddHours(10), Note = "PN" },
+                new PatientTime { DispensedAt = DateTime.Today.AddHours(15), Note = "PN" },
+            }
+        },
+
+        new Resident {
+            RiskLevel = RiskIndicator.High,
+            FirstName = "Mette",
+            LastName = "Thomsen",
+            ShoppingDay = "Fredag",
+            PaymentMethod = "Kontant",
+            Status = "Godt humør",
+
+            ScheduleMedications = new List<ScheduleMedication>
+            {
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(8) },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(12), IsGiven = false },
+                new ScheduleMedication { DispenseAt = DateTime.Today.AddHours(18), IsGiven = true },
+
+            },
+
+            PatientTimes = new List<PatientTime>
+            {
+                new PatientTime { DispensedAt = DateTime.Today.AddHours(10), Note = "PN" },
+                new PatientTime { DispensedAt = DateTime.Today.AddHours(15), Note = "PN" },
             }
         }
+
+
     };
+
+    string GetRiskText(RiskIndicator risk)
+    {
+        return risk switch
+        {
+            RiskIndicator.High => "Rød",
+            RiskIndicator.Middle => "Gul",
+            RiskIndicator.Low => "Grøn",
+            _ => ""
+        };
+    }
+
+    string GetRiskClass(RiskIndicator risk)
+    {
+        return risk switch
+
+        {
+            RiskIndicator.High => "red",
+            RiskIndicator.Middle => "yellow",
+            RiskIndicator.Low => "green",
+            _ => ""
+        }
+
+    ;
+    }
+
 }

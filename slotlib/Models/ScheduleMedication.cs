@@ -13,5 +13,7 @@ namespace slotlib.Models
 
         private DateTime _dispenseAt;
         public DateTime DispenseAt { get; set; }
+
+        public bool IsGiven { get; set; }
     }
 }
