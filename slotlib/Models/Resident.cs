@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using slotlib.Enums;
 
 namespace slotlib.Models
 {
@@ -32,7 +33,11 @@ namespace slotlib.Models
         private string _status;
         public string Status { get; set; }
 
+        public RiskIndicator RiskLevel { get; set; }
+
         public List<ScheduleMedication> ScheduleMedications { get; set; } = new();
+
+        public List<PatientTime> PatientTimes { get; set; } = new();
 
 
     }

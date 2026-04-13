@@ -1,0 +1,224 @@
+﻿
+/*The whole container for a single resident*/
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    padding: 20px;
+    padding-bottom: 100px;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+/*For all the white boxes*/
+.info-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    background-color: white;
+    color: #555;
+    overflow: hidden; /* vigtig */
+    min-height: 36px;
+}
+
+.status-box span {
+    white-space: normal;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* max 3 linjer */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.status-box {
+    min-height: 60px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 8px;
+    line-height: 1.2;
+}
+   
+
+.info-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 4px;
+    margin-bottom: 6px;
+    align-items: start;
+}
+
+    .info-row h5 {
+        margin: 0;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+.info-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: flex-start;
+}
+
+
+/*::deep goes to child components and styles this element anyway*/
+::deep .card {
+    width: 100%;
+    min-width: 0;
+    min-height: 240px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+::deep .card-header {
+    padding: 0;
+    margin: 0;
+}
+
+::deep .card-body {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.risk-badge {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    box-sizing: border-box;
+}
+
+    .risk-badge h3 {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.2;
+        word-break: break-word;
+    }
+
+.red {
+    background-color: red;
+}
+
+.yellow {
+    background-color: orange;
+}
+
+.green {
+    background-color: green;
+}
+
+/*Medication*/
+.medicin-container,
+.pn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.medicin-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 6px;
+    font-size: 10px;
+    min-width: 60px;
+    max-width: 100px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+    .medicin-row.done {
+        background-color: #d1fae5;
+        color: #065f46;
+    }
+
+    .medicin-row.pending {
+        background-color: #fee2e2;
+        color: #7f1d1d;
+    }
+
+.pn-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 60px;
+    max-width: 100px;
+    padding: 4px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 500;
+    background-color: #e5e7eb;
+    color: #374151;
+    box-sizing: border-box;
+}
+
+.pn-note,
+.medicin-status {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tid {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.pn-row.empty {
+    background-color: transparent;
+    color: #9ca3af;
+    font-style: italic;
+}
+
+
+/*News banner for important todos*/
+.news-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    background-color: #FFDEAD;
+    color: black;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.ticker {
+    overflow: hidden;
+}
+
+.ticker-track {
+    display: flex;
+    width: max-content; 
+    animation: scroll-left 20s linear infinite;
+}
+
+.item {
+    margin-right: 60px;
+}
+
+.separator {
+    margin-right: 60px;
+}
+
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
