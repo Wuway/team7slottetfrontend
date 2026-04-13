@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject HttpClient Http
 
 <PageTitle>Home</PageTitle>
 
@@ -13,6 +14,15 @@
     </Header>
     <ChildContent>
         Welcome to your new app.
+    </ChildContent>
+</Card>
+
+<Card>
+    <Header>
+        Some JsonData from API example
+    </Header>
+    <ChildContent>
+        <pre>@json</pre>
     </ChildContent>
 </Card>
 
@@ -31,3 +41,37 @@
         </form>
     </ChildContent>
 </Card>
+
+
+@code {
+
+    private string json = "";
+
+    private Resident resident;
+
+    // Lifecucle method
+    protected override async Task OnInitializedAsync()
+    {
+        // Set url base
+        Http.BaseAddress = new Uri("https://jsonplaceholder.typicode.com/users");
+        json = await Http.GetStringAsync("users/1");
+
+
+        // raw json string
+        // await Http.GetStringAsync("users");
+
+        // deserialize to object
+        // await Http.GetFromJsonAsync<List<User>>("users");
+
+        // single user by id
+        // await Http.GetFromJsonAsync<User>("users/1");
+
+
+        // await Http.PostAsJsonAsync("users", newUser);
+        // await Http.PutAsJsonAsync("users/1", updatedUser);
+        // await Http.DeleteAsync("users/1");
+
+
+
+    }
+}

@@ -1,0 +1,35 @@
+﻿h2 {
+    color: var(--primery-text);
+    margin-bottom: 20px;
+}
+
+.lock-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+
+.code-boxes {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.code-box {
+    width: 60px;
+    height: 80px;
+    border: 1px solid var(--borders);
+    border-radius: 8px;
+    background-color: var(--surface);
+    text-align: center;
+    font-size: 2rem;
+    color: var(--primery-text);
+    outline: none;
+}
+
+.lock-text {
+    color: var(--primery-text);
+    font-size: 1.1em;
+}

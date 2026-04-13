@@ -1,17 +1,19 @@
 ﻿@page "/plejekort"
 
 
-<div class="date-nav">
-    <button>&#8249;</button>
-    <span id="dateLabel">Torsdag d. 26-02-2026</span>
-    <button>&#8250;</button>
-</div>
+
+@* --- Dato-navigation (genbrugelig komponent: DateNavigator) --- *@
+<DateNavigator Date="currentDate" DateChanged="OnDateChanged" />
 
 <div class="columns ">
 
     <!-- RESIDENT PICKER -->
     <aside>
-    <div>
+       <ResidentPicker
+           Residents="pickerResidents"
+           SelectedResident="selectedPickerResident"
+           SelectedResidentChanged="OnResidentSelected" />
+@*     <div>
         <p class="picker-label">Vælg Beboer</p>
 
         <div class="picker-list">
@@ -28,15 +30,24 @@
 
             <div class="picker-scroll-btn">&#8964;</div>
         </div>
-    </div>
+    </div> *@
     </aside>
+
     <!-- DETAIL CARD -->
     <aside>
-    <div class="detail-card">
+        <DetailCard Resident="currentResident"
+                    ResidentChanged="OnDetailChanged"/>
+@*     <div class="detail-card">
 
-        <div class="detail-header">
+        <div class="detail-header @StatusClass">
             <h2>Anne Rasmussen</h2>
-            <button class="kritisk-btn">Kritisk &#8964;</button>
+            <div class="kritisk-wrap @StatusClass">
+                <select class="kritisk-select" @bind="status" aria-label="Status">
+                    <option value="@slotlib.Enums.RiskIndicator.High">Kritisk</option>
+                    <option value="@slotlib.Enums.RiskIndicator.Middle">Ustabil</option>
+                    <option value="@slotlib.Enums.RiskIndicator.Low">Stabil</option>
+                </select>
+            </div>
         </div>
 
         <div class="detail-body">
@@ -137,7 +148,7 @@
 
                     </div>
 
-                    <textarea placeholder="Indkøbsliste eller noter"></textarea>
+                    <textarea class= "message-area" placeholder="Indkøbsliste eller noter"></textarea>
 
                 </div>
 
@@ -145,7 +156,7 @@
 
                     <label>Betaling</label>
 
-                    <textarea placeholder="Betalings information"></textarea>
+                        <textarea class="message-area" placeholder="Betalings information"></textarea>
 
                 </div>
 
@@ -162,11 +173,7 @@
 
         </div>
 
-    </div>
+    </div> *@
     </aside>
 
 </div>
-
-@code {
-
-}

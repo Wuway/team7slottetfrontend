@@ -1,0 +1,65 @@
+﻿h2 {
+    color: var(--primery-text);
+    margin-bottom: 20px;
+}
+
+.log-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 12px;
+}
+
+.log-date {
+    color: var(--primery-text);
+    font-size: 1.1em;
+}
+
+.nav-arrow {
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    cursor: pointer;
+    color: var(--primery-text);
+    padding: 0;
+    line-height: 1;
+}
+
+.today-button {
+    background: none;
+    border: none;
+    color: #0b78c9;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.log-wrapper {
+    border: 1px solid var(--borders);
+    background-color: var(--surface);
+    border-radius: 4px;
+    min-height: 360px;
+    overflow: hidden;
+}
+
+.log-header {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr 1.5fr 1fr 0.7fr;
+    gap: 12px;
+    padding: 10px 12px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--borders);
+    font-size: 0.9em;
+}
+
+.log-row {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr 1.5fr 1fr 0.7fr;
+    gap: 12px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 0.95em;
+}
+
+    .log-row:last-child {
+        border-bottom: none;
+    }

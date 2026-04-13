@@ -1,0 +1,45 @@
+﻿@using Services
+@inject AuthService AuthService
+
+
+<div class="modal-backdrop" @onkeydown="HandleKey">
+    <Card>
+        <Header>
+            Password Check
+        </Header>
+        <ChildContent>
+            <SL_InputField type="password" @bind="password" placeholder="Enter password" @onkeydown="HandleKey" />
+        </ChildContent>
+    </Card>
+</div>
+
+@code {
+    [Parameter] 
+    public EventCallback<bool> OnAuthResult { get; set; }
+
+    private string password;
+
+    private void Submit()
+    {
+        Console.WriteLine("test");
+        var result = AuthService.Verify(123, password);
+        OnAuthResult.InvokeAsync(result);
+    }
+
+
+    private void HandleKey(KeyboardEventArgs e)
+    {
+        Console.WriteLine(e.Key);
+        if (e.Key == "Enter") Submit();
+        if (e.Key == "Escape") _ = OnAuthResult.InvokeAsync(false);
+    }
+
+
+    // private async Task Submit()
+    // {
+    //     var result = await AuthService.Verify(password);
+    //     await OnAuthResult.InvokeAsync(result);
+    // }
+
+    
+}

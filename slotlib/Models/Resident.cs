@@ -34,8 +34,19 @@ namespace slotlib.Models
         public string Status { get; set; }
 
         public RiskIndicator RiskLevel { get; set; }
+        private string _shoppingNotes;
+        public string ShoppingNotes { get; set; }
+
+        private string _paymentNotes;
+        public string PaymentNotes { get; set; }
+
+        private string _message;
+        public string Message { get; set; }
+
+
 
         public List<ScheduleMedication> ScheduleMedications { get; set; } = new();
+        public List<PatientTime> PatientTime { get; set; } = new();
 
         public List<PatientTime> PatientTimes { get; set; } = new();
 

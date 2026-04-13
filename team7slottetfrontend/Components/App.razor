@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,8 +15,13 @@
 </head>
 
 <body>
-    <Routes />
+    <Routes @rendermode="InteractiveServer" />
     <script src="_framework/blazor.web.js"></script>
+    <script>
+        window.setTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+    </script>
 </body>
 
 </html>

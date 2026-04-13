@@ -2,8 +2,39 @@
     border-radius: var(--mid-radius);
 }
 
+/* Holder ikon og tekst på en linje  */
 ::deep .nav-item a.nav-link {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center !important;
+    gap: 0.5rem;
+    white-space: nowrap;
     color: var(--secondery-text) !important;
+}
+
+/* Centrer ikon i samme højde som tekst-rækken */
+::deep .nav-item a.nav-link .bi {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    line-height: 1;
+    vertical-align: unset;
+}
+
+/* Teksten centrerer mod midten af ikonet */
+::deep .nav-item a.nav-link .nav-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    height: 2rem;
+    line-height: 1.2;
 }
 
 ::deep .nav-item a.active {
@@ -26,4 +57,5 @@
 ::deep .nav-item a.active .bi {
     color: var(--primery-text) !important;
 }
+
 

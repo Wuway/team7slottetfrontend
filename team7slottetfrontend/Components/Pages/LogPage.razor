@@ -1,0 +1,29 @@
+﻿@page "/logpage"
+
+<h2>Hændelseslog</h2>
+
+@* --- Dato-navigation (genbrugelig komponent: DateNavigator) --- *@
+<DateNavigator Date="currentDate" DateChanged="OnDateChanged" />
+
+<div class="log-wrapper">
+    <div class="log-header">
+        <div>Tidspunkt</div>
+        <div>Medarbejder</div>
+        <div>Handling</div>
+        <div>Detaljer</div>
+        <div>Type</div>
+        <div>ID</div>
+    </div>
+
+    @foreach (var log in logs)
+    {
+        <div class="log-row">
+            <div>@log.Time</div>
+            <div>@log.Employee</div>
+            <div>@log.Action</div>
+            <div>@log.Details</div>
+            <div>@log.Type</div>
+            <div>@log.Id</div>
+        </div>
+    }
+</div>

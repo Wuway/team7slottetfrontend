@@ -1,0 +1,14 @@
+﻿@page "/lockpage"
+
+<h2>Medarbejder login</h2>
+
+<div class="lock-page-wrapper">
+    <div class="code-boxes">
+        @foreach (var digit in codeDigits)
+        {
+            <input class="code-box" type="text" maxlength="1" value="@digit" />
+        }
+    </div>
+
+    <p class="lock-text">Indtast 6-cifret personale kode</p>
+</div>
