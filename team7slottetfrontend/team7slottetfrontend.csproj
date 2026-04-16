@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\slotlib\slotlib.csproj" />
+    <ProjectReference Include="..\slottetapi\slottetapi.csproj" />
   </ItemGroup>
 
 </Project>
