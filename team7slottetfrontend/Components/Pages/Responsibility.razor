@@ -66,14 +66,14 @@
                             <td>@task.Title</td> 
                             <td class="text-center">
                                 <EmployeeSelect Value="task.UserId"
-                                                ValueChanged="@(v => task.UserId = v)"
+                                                ValueChanged="@(async v => await OnUserChanged(task, v))"
                                                 Employees="employees"
                                                 Class="employee-dropdown" />
                             </td>
                             <td class="text-center col-status-cell">
                                 @* Samme toggle som Synlighed på EmployePage – følger dag/nat via CSS-variabler *@
                                 <ToggleSwitch Value="task.IsCompleted"
-                                              ValueChanged="@(v => task.IsCompleted = v)" />
+                                              ValueChanged="@(async v => await OnCompletedChanged(task, v))" />
                             </td>
                             <td>
                                 <div class="icon-actions">

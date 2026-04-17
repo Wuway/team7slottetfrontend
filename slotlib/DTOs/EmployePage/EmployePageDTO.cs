@@ -1,10 +1,31 @@
 using System;
+using slotlib.Enums;
 
 namespace slotlib.DTOs.EmployePage;
 
 public class EmployePageDTO
 {
-    // Er bare placeholder filer, Skal være public record istedet for class.
-    // Skal indeholde de data, som EmployePage-siden har brug for at vise (f.eks. liste over medarbejdere, roller, søgefunktion osv.) – kan være flere forskellige DTO’er afhængigt af, hvordan vi strukturerer data og API-endpoints
-
+    public record EmployeeDto( //record betyder at det er en immutable class, hvor properties kun kan sættes ved instansiering og ikke ændres senere. Det er ideelt til dataoverførsel, da det sikrer, at dataene forbliver konsistente og uforanderlige efter oprettelsen.
+    int Id,
+    string FirstName,
+    string LastName,
+    string Alias,
+    UserRole Role,
+    bool ActiveDeactive
+);
+public record CreateEmployeeRequest(
+    string FirstName,
+    string LastName,
+    string Alias,
+    string Password,   // 6 cifre
+    UserRole Role
+);
+public record UpdateEmployeeRequest(
+    string FirstName,
+    string LastName,
+    string Alias,
+    UserRole Role,
+    string? Password = null
+);
+public record SetEmployeeActiveRequest(bool ActiveDeactive);
 }

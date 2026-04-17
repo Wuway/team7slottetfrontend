@@ -1,14 +1,24 @@
 using Microsoft.AspNetCore.Components;
+using slotlib.DTOs.EmployePage;
+using slotlib.DTOs.Responsibility;
 using slotlib.Enums;
 using slotlib.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 
 namespace team7slottetfrontend.Components.Pages
 {
     public partial class Responsibility : ComponentBase
     {
+        [Inject] private IHttpClientFactory HttpClientFactory { get; set; } = default!;
+
+        private HttpClient http = default!;
+        private const string ResponsibilityApiBase = "api/responsibility";
+
         #region Felter/State (UI)
         private List<slotlib.Models.Responsibility> currentTasks = new List<slotlib.Models.Responsibility>();
         private List<User> employees = new List<User>();
@@ -23,17 +33,22 @@ namespace team7slottetfrontend.Components.Pages
         #endregion
 
         #region Lifecycle
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            LoadMockEmployees();
-
+            http = HttpClientFactory.CreateClient("SlottetApi");
+            
             int currentHour = DateTime.Now.Hour;
             if (currentHour >= 7 && currentHour < 15)
-                SetShift(ShiftType.Morgen);
+                activeShift = ShiftType.Morgen;
             else if (currentHour >= 15 && currentHour < 23)
-                SetShift(ShiftType.Eftermiddag);
+                activeShift = ShiftType.Eftermiddag;
             else
-                SetShift(ShiftType.Nat);
+                activeShift = ShiftType.Nat;
+
+            ApplyShiftWindow(activeShift);
+
+            await LoadEmployeesAsync();
+            await LoadTasksForCurrentShiftAsync();
         }
         #endregion
 
@@ -49,80 +64,82 @@ namespace team7slottetfrontend.Components.Pages
             newTaskName = "";
         }
 
-        // TODO (API): POST /responsibilities
-        private void SaveTask()
+        private async Task SaveTask()
         {
-            if (!string.IsNullOrWhiteSpace(newTaskName))
-            {
-                int newId = currentTasks.Any() ? currentTasks.Max(t => t.Id) + 1 : 1;
+            if (string.IsNullOrWhiteSpace(newTaskName))
+                return;
 
-                var newTask = new slotlib.Models.Responsibility
-                {
-                    Id = newId,
-                    Title = newTaskName,
-                    Shift = activeShift,
-                    TaskDate = currentDate.Date,
-                    IsCompleted = false
-                };
+            var req = new ResponsibilityDTO.CreateTemplateRequest(
+                Title: newTaskName.Trim(),
+                StartDate: currentDate.Date,
+                Shift: activeShift);
 
-                currentTasks.Add(newTask);
+            var resp = await http.PostAsJsonAsync(ResponsibilityApiBase, req);
+            resp.EnsureSuccessStatusCode();
 
-                isAddFormVisible = false;
-                newTaskName = "";
-            }
+            isAddFormVisible = false;
+            newTaskName = "";
+            await LoadTasksForCurrentShiftAsync();
         }
         #endregion
 
-        #region Data (Mock) – skiftes til API-kald
-        // TODO (API): GET /employees (til dropdown)
-        private void LoadMockEmployees()
+        #region Data (API)
+        private async Task LoadEmployeesAsync()
         {
-            employees = new List<User>
+            var items = await http.GetFromJsonAsync<List<EmployePageDTO.EmployeeDto>>("api/employees") ?? new();
+            employees = items.Select(e => new User
             {
-                new User { Id = 1, FirstName = "Bjarne", LastName = "Brup", Alias = "Bjerget" },
-                new User { Id = 2, FirstName = "Hanne", LastName = "Hansen", Alias = "Hansedanse" },
-                new User { Id = 3, FirstName = "Søren", LastName = "Skole", Alias = "Banjemusen" }
-            };
+                Id = e.Id,
+                FirstName = e.FirstName,
+                LastName = e.LastName,
+                Alias = e.Alias,
+                Role = e.Role,
+                ActiveDeactive = e.ActiveDeactive
+            }).ToList();
         }
 
-        // TODO (API): GET /responsibilities?date=...&shift=...
-        private void LoadTasksForCurrentShift()
+        private async Task LoadTasksForCurrentShiftAsync()
         {
-            currentTasks = new List<slotlib.Models.Responsibility>
+            var date = Uri.EscapeDataString(currentDate.Date.ToString("yyyy-MM-dd"));
+            var shift = Uri.EscapeDataString(activeShift.ToString());
+            var url = $"{ResponsibilityApiBase}?date={date}&shift={shift}";
+
+            var items = await http.GetFromJsonAsync<List<ResponsibilityDTO.ResponsibilityDto>>(url) ?? new();
+
+            currentTasks = items.Select(t => new slotlib.Models.Responsibility
             {
-                new slotlib.Models.Responsibility
-                {
-                    Id = 1,
-                    Title = "Toilet rengøring",
-                    UserId = 1,
-                    Shift = activeShift,
-                    TaskDate = currentDate.Date,
-                    IsCompleted = false
-                },
-                new slotlib.Models.Responsibility
-                {
-                    Id = 2,
-                    Title = "Tjekke medicinskab",
-                    UserId = 2,
-                    Shift = activeShift,
-                    TaskDate = currentDate.Date,
-                    IsCompleted = true
-                }
-            };
+                Id = t.Id,
+                TemplateId = t.TemplateId,
+                Title = t.Title,
+                SortOrder = t.SortOrder,
+                TaskDate = t.TaskDate,
+                Shift = t.Shift,
+                UserId = t.UserId,
+                IsCompleted = t.IsCompleted
+            })
+            .OrderBy(t => t.SortOrder)
+            .ThenBy(t => t.Id)
+            .ToList();
         }
         #endregion
 
         #region Dato + vagt (navigation/valg)
         
-        private void OnDateChanged(DateTime next)
+        private async Task OnDateChanged(DateTime next)
         {
             currentDate = next;
-            LoadTasksForCurrentShift();
+            await LoadTasksForCurrentShiftAsync();
         }
 
-        private void SetShift(ShiftType shift)
+        private async Task SetShift(ShiftType shift)
         {
             activeShift = shift;
+            ApplyShiftWindow(shift);
+            await LoadTasksForCurrentShiftAsync();
+        }
+
+        private void ApplyShiftWindow(ShiftType shift)
+        {
             switch (shift)
             {
                 case ShiftType.Morgen:
@@ -138,38 +155,68 @@ namespace team7slottetfrontend.Components.Pages
                     shiftEnd = new TimeSpan(6, 59, 59);
                     break;
             }
-            LoadTasksForCurrentShift();
         }
         #endregion
 
-        #region Tabel handlinger (sortér/slet)
-        // TODO (API): PATCH /responsibilities/{id} med IsCompleted når brugeren skifter toggle (bind til ToggleSwitch)
-
-        private void MoveTaskUp(slotlib.Models.Responsibility task)
+        #region Tabel handlinger (API)
+        private async Task OnCompletedChanged(slotlib.Models.Responsibility task, bool isCompleted)
         {
-            int index = currentTasks.IndexOf(task); // Find indekset for den aktuelle opgave
-            if (index > 0)
+            bool previous = task.IsCompleted;
+            task.IsCompleted = isCompleted;
+
+            var resp = await http.PatchAsJsonAsync(
+                $"{ResponsibilityApiBase}/{task.Id}/completed",
+                new ResponsibilityDTO.SetCompletedRequest(isCompleted));
+
+            if (!resp.IsSuccessStatusCode)
             {
-                var temp = currentTasks[index - 1]; // Gem den forrige opgave
-                currentTasks[index - 1] = task; // Flyt den aktuelle opgave op
-                currentTasks[index] = temp; // Flyt den tidligere opgave ned
+                task.IsCompleted = previous;
+                resp.EnsureSuccessStatusCode();
             }
         }
 
-        private void MoveTaskDown(slotlib.Models.Responsibility task)
+        private async Task OnUserChanged(slotlib.Models.Responsibility task, int? userId)
         {
-            int index = currentTasks.IndexOf(task);
-            if (index < currentTasks.Count - 1)
+            int? previous = task.UserId;
+            task.UserId = userId;
+
+            var resp = await http.PutAsJsonAsync(
+                $"{ResponsibilityApiBase}/{task.Id}",
+                new ResponsibilityDTO.UpdateResponsibilityRequest(
+                    Title: task.Title,
+                    UserId: userId));
+
+            if (!resp.IsSuccessStatusCode)
             {
-                var temp = currentTasks[index + 1];
-                currentTasks[index + 1] = task;
-                currentTasks[index] = temp; 
+                task.UserId = previous;
+                resp.EnsureSuccessStatusCode();
             }
         }
 
-        private void DeleteTask(slotlib.Models.Responsibility task)
+        private async Task MoveTaskUp(slotlib.Models.Responsibility task)
         {
-            currentTasks.Remove(task);
+            await MoveTask(task, ResponsibilityDTO.MoveDirection.Up);
+        }
+
+        private async Task MoveTaskDown(slotlib.Models.Responsibility task)
+        {
+            await MoveTask(task, ResponsibilityDTO.MoveDirection.Down);
+        }
+
+        private async Task MoveTask(slotlib.Models.Responsibility task, ResponsibilityDTO.MoveDirection direction)
+        {
+            var resp = await http.PostAsJsonAsync(
+                $"{ResponsibilityApiBase}/{task.Id}/move",
+                new ResponsibilityDTO.MoveRequest(direction));
+            resp.EnsureSuccessStatusCode();
+            await LoadTasksForCurrentShiftAsync();
+        }
+
+        private async Task DeleteTask(slotlib.Models.Responsibility task)
+        {
+            var resp = await http.DeleteAsync($"{ResponsibilityApiBase}/{task.Id}");
+            resp.EnsureSuccessStatusCode();
+            await LoadTasksForCurrentShiftAsync();
         }
         #endregion
     }

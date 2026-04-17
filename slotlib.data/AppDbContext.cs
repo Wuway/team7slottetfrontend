@@ -13,6 +13,7 @@ namespace slotlib.data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<User> Users => Set<User>();
+        public DbSet<ResponsibilityTemplate> ResponsibilityTemplates => Set<ResponsibilityTemplate>();
         public DbSet<Responsibility> Responsibilities => Set<Responsibility>();
         // public DbSet<ShiftTask> ShiftTasks => Set<ShiftTask>();
         // ... resten af dine entities ...
@@ -38,6 +39,18 @@ namespace slotlib.data
                 .WithOne(r => r.AssignedUser)
                 .HasForeignKey(r => r.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            // Template -> Instances (1..many)
+            modelBuilder.Entity<ResponsibilityTemplate>()
+                .HasMany(t => t.Instances)
+                .WithOne(i => i.Template)
+                .HasForeignKey(i => i.TemplateId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Unik pr template pr dag+shift (undgå dubletter)
+            modelBuilder.Entity<Responsibility>()
+                .HasIndex(r => new { r.TemplateId, r.TaskDate, r.Shift })
+                .IsUnique();
 
             // Responsibility: (dato + shift) bruges tit til filtrering
             modelBuilder.Entity<Responsibility>()
