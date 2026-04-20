@@ -3,6 +3,10 @@
     <File Path="Model DCD.mmd" />
     <File Path="UpdateUserVerificationSSD.mmd" />
   </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="docker-compose.yml" />
+  </Folder>
+  <Project Path="slotlib.data/slotlib.data.csproj" Id="e3436614-ed13-47ee-afe2-a59b487c5071" />
   <Project Path="slotlib/slotlib.csproj" Id="0454d705-78f3-435b-a12e-04b6141f7837" />
   <Project Path="slottetapi/slottetapi.csproj" />
   <Project Path="team7slottetfrontend/team7slottetfrontend.csproj" />

@@ -12,7 +12,7 @@ namespace slotlib.Models
     {
        public int Id { get; set; }
 
-        [Required(ErrorMessage = "Fornavn er påkrævet.")]
+        [Required(ErrorMessage = "Fornavn er påkrævet.")] //[Requirede] gør at feltet er påkrævet, og hvis det ikke er udfyldt, vil det vise den angivne fejlmeddelelse.
         public string FirstName { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Efternavn er påkrævet.")]
@@ -21,7 +21,7 @@ namespace slotlib.Models
         [Required(ErrorMessage = "Alias er påkrævet.")]
         public string Alias { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Kode er mangler.")]
+        [Required(ErrorMessage = "Kode er mangler.")] 
         [StringLength(6, MinimumLength = 6, ErrorMessage = "Koden skal bestå af præcis 6 tegn.")]
         public string Password { get; set; } = string.Empty; 
 

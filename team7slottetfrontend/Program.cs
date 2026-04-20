@@ -10,7 +10,14 @@ builder.Services.AddRazorComponents()
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddSingleton<ModalService>();
 
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("SlottetApi", client =>
+{
+    var baseUrl = builder.Configuration["Api:BaseUrl"];
+    if (string.IsNullOrWhiteSpace(baseUrl))
+        throw new InvalidOperationException("Missing configuration value: Api:BaseUrl");
+
+    client.BaseAddress = new Uri(baseUrl, UriKind.Absolute);
+});
 
 
 var app = builder.Build();

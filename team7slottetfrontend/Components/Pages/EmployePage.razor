@@ -103,11 +103,11 @@
                         <td>@employee.Alias</td>
                         <td class="text-center">
                             @* Toggle (genbrugelig komponent: ToggleSwitch) *@
-                            <ToggleSwitch Value="employee.ActiveDeactive" ValueChanged="@(v => employee.ActiveDeactive = v)" />
+                            <ToggleSwitch Value="employee.ActiveDeactive" ValueChanged="@(async v => await OnActiveChanged(employee, v))" />
                         </td>
                         <td class="text-center col-role-cell">
                             @* Enum dropdown (genbrugelig komponent: EnumSelect<UserRole>) *@
-                            <EnumSelect TEnum="UserRole" Value="employee.Role" ValueChanged="@(v => employee.Role = v)" Options="AvailableRoles" />
+                            <EnumSelect TEnum="UserRole" Value="employee.Role" ValueChanged="@(async v => await OnRoleChanged(employee, v))" Options="AvailableRoles" />
                         </td>
                         <td class="text-center">
                             <div class="col-actions">

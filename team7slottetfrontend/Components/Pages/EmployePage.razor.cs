@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Components;
 using slotlib.Models;
 using slotlib.Enums;
+using System.Net.Http;
+using System.Net.Http.Json;
+using slotlib.DTOs.EmployePage;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,10 +12,14 @@ namespace team7slottetfrontend.Components.Pages
 {
     public partial class EmployePage : ComponentBase
     {
+        [Inject] public IHttpClientFactory HttpClientFactory { get; set; } = default!;
+
+        private HttpClient http = default!; // Initialized in OnInitializedAsync for better control over BaseAddress
+
         #region Fields / Properties
         public List<User> Employees { get; private set; } = new List<User>();
         public User newEmployee = new User();
-        private bool isEditing = false;
+        private bool isEditing;
         private bool isAddEmployeeFormVisible = false;
         private string searchTerm = string.Empty;
         private UserRole[] AvailableRoles;
@@ -21,47 +28,65 @@ namespace team7slottetfrontend.Components.Pages
         #endregion
 
         #region Lifecycle
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
+            http = HttpClientFactory.CreateClient("SlottetApi");
+
             AvailableRoles = (UserRole[])Enum.GetValues(typeof(UserRole));
-            LoadMockEmployees();
+            await LoadEmployeesAsync();
         }
         #endregion
 
-        #region Data (Mock) – skiftes til API-kald
-        // TODO (API): Erstat LoadMockEmployees() med kald til backend (GET /employees)
-        private void LoadMockEmployees()
+        #region Data (API)
+        private async Task LoadEmployeesAsync()
         {
-            Employees = new List<User>
+            var url = string.IsNullOrWhiteSpace(searchTerm)
+                ? "api/employees"
+                : $"api/employees?search={System.Uri.EscapeDataString(searchTerm)}";
+
+            var items = await http.GetFromJsonAsync<List<EmployePageDTO.EmployeeDto>>(url) ?? new();
+
+            // Vi bruger User i UI (validering + muterbar table state)
+            Employees = items.Select(d => new User
             {
-                new User { Id = 1, FirstName = "Peter", LastName = "Pan", Alias = "Pande", Password = "123456", Role = UserRole.Administrator, ActiveDeactive = true },
-                new User { Id = 2, FirstName = "Kaptajn", LastName = "Klo", Alias = "Kloen", Password = "654321", Role = UserRole.Medicinansvarlig, ActiveDeactive = true },
-                new User { Id = 3, FirstName = "Anders", LastName = "And", Alias = "Rappen", Password = "112233", Role = UserRole.Plejepersonale, ActiveDeactive = false },
-                new User { Id = 4, FirstName = "Mickey", LastName = "Mouse", Alias = "Musen", Password = "445566", Role = UserRole.Vikar, ActiveDeactive = true }
-            };
+                Id = d.Id,
+                FirstName = d.FirstName,
+                LastName = d.LastName,
+                Alias = d.Alias,
+                Role = d.Role,
+                ActiveDeactive = d.ActiveDeactive
+            }).ToList();
         }
         #endregion
 
         #region UI-handling (Form + Actions)
-        private void HandleSubmit()
+        private async Task HandleSubmit()
         {
             if (isEditing)
             {
-                UpdateEmployee();
+                await UpdateEmployeeAsync();
             }
             else
             {
-                AddNewEmployee();
+                await AddNewEmployeeAsync();
             }
         }
 
-        // TODO (API): POST /employees
-        private void AddNewEmployee()
+        private async Task AddNewEmployeeAsync()
         {
-            newEmployee.Id = Employees.Any() ? Employees.Max(e => e.Id) + 1 : 1;
-            newEmployee.ActiveDeactive = true;
-            Employees.Add(newEmployee);
-            ClearForm(); // gem -> luk formularen og ryd input
+            var req = new EmployePageDTO.CreateEmployeeRequest(
+                FirstName: newEmployee.FirstName,
+                LastName: newEmployee.LastName,
+                Alias: newEmployee.Alias,
+                Password: newEmployee.Password,
+                Role: newEmployee.Role
+            );
+
+            var resp = await http.PostAsJsonAsync("api/employees", req);
+            resp.EnsureSuccessStatusCode();
+
+            ClearForm();
+            await LoadEmployeesAsync();
         }
 
         private void EditEmployee(User user)
@@ -71,19 +96,21 @@ namespace team7slottetfrontend.Components.Pages
             isAddEmployeeFormVisible = true;
         }
 
-        // TODO (API): PUT/PATCH /employees/{id}
-        private void UpdateEmployee()
+        private async Task UpdateEmployeeAsync()
         {
-            var employeeToUpdate = Employees.FirstOrDefault(e => e.Id == newEmployee.Id);
-            if (employeeToUpdate != null)
-            {
-                employeeToUpdate.FirstName = newEmployee.FirstName;
-                employeeToUpdate.LastName = newEmployee.LastName;
-                employeeToUpdate.Alias = newEmployee.Alias;
-                employeeToUpdate.Password = newEmployee.Password;
-                employeeToUpdate.Role = newEmployee.Role;
-            }
+            var req = new EmployePageDTO.UpdateEmployeeRequest(
+                FirstName: newEmployee.FirstName,
+                LastName: newEmployee.LastName,
+                Alias: newEmployee.Alias,
+                Role: newEmployee.Role,
+                Password: string.IsNullOrWhiteSpace(newEmployee.Password) ? null : newEmployee.Password
+            );
+
+            var resp = await http.PutAsJsonAsync($"api/employees/{newEmployee.Id}", req);
+            resp.EnsureSuccessStatusCode();
+
             ClearForm();
+            await LoadEmployeesAsync();
         }
 
         private void ConfirmDelete(User user)
@@ -98,14 +125,15 @@ namespace team7slottetfrontend.Components.Pages
             showDeleteConfirmation = false;
         }
 
-        // TODO (API): DELETE /employees/{id}
-        private void ExecuteDelete()
+        private async Task ExecuteDelete()
         {
             if (employeeToDelete != null)
             {
-                Employees.Remove(employeeToDelete);
+                var resp = await http.DeleteAsync($"api/employees/{employeeToDelete.Id}");
+                resp.EnsureSuccessStatusCode();
             }
             CancelDelete();
+            await LoadEmployeesAsync();
         }
 
         private void ClearForm()
@@ -135,7 +163,37 @@ namespace team7slottetfrontend.Components.Pages
         }
         #endregion
 
-        #region Afledt data (filtrering)
+        #region UI-handling (Inline changes)
+        private async Task OnActiveChanged(User employee, bool next)
+        {
+            employee.ActiveDeactive = next;
+
+            var resp = await http.PatchAsJsonAsync(
+                $"api/employees/{employee.Id}/active",
+                new EmployePageDTO.SetEmployeeActiveRequest(next));
+
+            resp.EnsureSuccessStatusCode();
+        }
+
+        private async Task OnRoleChanged(User employee, UserRole next)
+        {
+            employee.Role = next;
+
+            // PUT med nuværende værdier; password sendes ikke ved inline role-change
+            var resp = await http.PutAsJsonAsync(
+                $"api/employees/{employee.Id}",
+                new EmployePageDTO.UpdateEmployeeRequest(
+                    employee.FirstName,
+                    employee.LastName,
+                    employee.Alias,
+                    employee.Role,
+                    Password: null));
+
+            resp.EnsureSuccessStatusCode();
+        }
+        #endregion
+
+        #region Afledt data (filtrering - fallback)
         private List<User> FilteredEmployees =>
         string.IsNullOrWhiteSpace(searchTerm)
             ? Employees
