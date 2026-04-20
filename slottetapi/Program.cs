@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using slotlib.data;
+using slottetapi.Services.Employees;
+using slottetapi.Services.Responsibilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+builder.Services.AddScoped<IEmployeeService, EmployeeService>(); // Tilføj EmployeeService som en scoped service, så den kan injiceres i controllers
+builder.Services.AddScoped<IResponsibilityService, ResponsibilityService>(); // Tilføj ResponsibilityService som en scoped service, så den kan injiceres i controllers
 
 var app = builder.Build();
 
