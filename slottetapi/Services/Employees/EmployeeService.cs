@@ -19,10 +19,11 @@ public class EmployeeService : IEmployeeService
         var q = _db.Users.AsNoTracking();
         if (!string.IsNullOrWhiteSpace(search))
         {
+            var s = search.Trim().ToLowerInvariant();
             q = q.Where(u =>
-                u.FirstName.Contains(search) ||
-                u.LastName.Contains(search) ||
-                u.Alias.Contains(search));
+                u.FirstName.ToLower().Contains(s) ||
+                u.LastName.ToLower().Contains(s) ||
+                u.Alias.ToLower().Contains(s));
         }
 
         return await q
